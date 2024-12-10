@@ -1,0 +1,32 @@
+<Project>
+  <PropertyGroup>
+    <Product>y0soro's BepInEx Plugins for ILLGAMES</Product>
+    <TargetFramework>net3.5</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <Features>strict</Features>
+    <Version>0.0.1</Version>
+    <Company>https://github.com/y0soro/ILL_Plugins</Company>
+    <Copyright>MIT LICENSE - Copyright (c) 2024 y0soro</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsPublishable>false</IsPublishable>
+
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <Authors>y0soro</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>BepInEx; Unity</PackageTags>
+  </PropertyGroup>
+</Project>

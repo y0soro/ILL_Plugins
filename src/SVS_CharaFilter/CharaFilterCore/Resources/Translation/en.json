@@ -1,0 +1,44 @@
+{
+  "groupName": {
+    "Default Group": "Default Group",
+    "Personality": "Personality",
+    "Source": "Source"
+  },
+  "tagName": {
+    "My Work": "My Work",
+    "Others Work": "Others Work",
+    "Presets": "Presets",
+    "お嬢様": "Ojousama",
+    "のんびり": "Relaxed",
+    "やんちゃ": "Mischievous",
+    "オタク": "Otaku",
+    "ギャル": "Gyaru",
+    "クール": "Cool",
+    "ヤンキー": "Yankee",
+    "不明": "Unknown",
+    "健気": "Hesitant",
+    "元気活発": "Energetic",
+    "好青年": "Agreeable",
+    "妖艶": "Bewitching",
+    "小悪魔": "Devilish",
+    "普通": "Ordinary",
+    "母性": "Motherly",
+    "無口": "Reserved",
+    "無邪気": "Naive",
+    "生意気": "Cheeky",
+    "純真無垢": "Innocent",
+    "豪快": "Bold",
+    "飄々": "Nonchalant"
+  },
+  "ui": {
+    "AND": "AND",
+    "All": "All",
+    "Chara Filter": "Chara Filter",
+    "Exclude-select": "Exclude-select",
+    "List #{0}": "List #{0}",
+    "Multi-select": "Multi-select",
+    "OR": "OR",
+    "Populate": "Populate",
+    "Reset": "Reset"
+  }
+}

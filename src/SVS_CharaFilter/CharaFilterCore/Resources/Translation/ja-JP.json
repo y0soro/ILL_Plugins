@@ -1,0 +1,45 @@
+{
+  "$comment": "Translated with the help of LLM, send a pull request if you have a better translation",
+  "groupName": {
+    "Default Group": "デフォルトグループ",
+    "Personality": "キャラメイク",
+    "Source": "情報源"
+  },
+  "tagName": {
+    "My Work": "自作",
+    "Others Work": "他作",
+    "Presets": "プリセット",
+    "お嬢様": "お嬢様",
+    "のんびり": "のんびり",
+    "やんちゃ": "やんちゃ",
+    "オタク": "オタク",
+    "ギャル": "ギャル",
+    "クール": "クール",
+    "ヤンキー": "ヤンキー",
+    "不明": "不明",
+    "健気": "健気",
+    "元気活発": "元気活発",
+    "好青年": "好青年",
+    "妖艶": "妖艶",
+    "小悪魔": "小悪魔",
+    "普通": "普通",
+    "母性": "母性",
+    "無口": "無口",
+    "無邪気": "無邪気",
+    "生意気": "生意気",
+    "純真無垢": "純真無垢",
+    "豪快": "豪快",
+    "飄々": "飄々"
+  },
+  "ui": {
+    "AND": "かつ",
+    "All": "すべて",
+    "Chara Filter": "Chara Filter",
+    "Exclude-select": "除外選択",
+    "List #{0}": "リスト #{0}",
+    "Multi-select": "マルチ選択",
+    "OR": "または",
+    "Populate": "充填",
+    "Reset": "リセット"
+  }
+}
