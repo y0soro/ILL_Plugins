@@ -45,11 +45,12 @@ For instance, to specify tag `Great` and add it to group `Rating`. The modifier 
 Except `{g=<group name>}` modifier, there's also modifiers to control group order, group multi-selectability and tag order.
 
 -   `{g=<group name>}` or `{group=<...>}`, defaults to `Default Group`.
--   `{go=<group order>}` or `{groupOrder=<...>}`, integer, defaults to `100` of `Default Group`.
--   `{o=<group order>}`, `{to=<...>}`, `{order=<...>}` or `{tagOrder=<...>}`, integer, defaults to `0`.
--   `{m=<multi-selectable>}`, multi-selectable is enabled if it's `{m=1}`, default to disable multi-select.
+-   `{go=<group order>}` or `{groupOrder=<...>}`, integer, defaults to `100` of `Default Group`, otherwise defaults to `0`.
+-   `{o=<tag order>}`, `{to=<...>}`, `{order=<...>}` or `{tagOrder=<...>}`, integer, defaults to `0`.
+-   `{m=<multi-selectable>}`, multi-selectable in AND mode, enabled if it's `{m=1}`, default to disable multi-select in AND mode.
 
-For `{go=<group order>}` and `{m=<multi-selectable>}`, you only need to specify once for a group in a tag. You can omit them for other tags belongs to the same group.
+For `{go=<group order>}` and `{m=<multi-selectable>}`, you only need to specify them once for a group in a tag. And you can omit them for other tags belongs to the same group.
+Same applies to `{o=<tag order>}` for cards share the same group tag.
 
 An example of tag name with all these modifiers would be:
 
