@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using BepInEx.Configuration;
 using BepInEx.Logging;
@@ -19,7 +20,7 @@ public abstract class CharaFilterManager
     private readonly FilterUI globalFilterUI;
 
     private readonly ConcurrentDictionary<MonoBehaviour, FilterWrapper> filterMap = [];
-    private MonoBehaviour[] cacheActiveFilterIds = [];
+    private readonly List<MonoBehaviour> cacheActiveFilterIds = [];
 
     private readonly object lockObj = new();
     private MonoBehaviour currTarget = null;
@@ -66,20 +67,9 @@ public abstract class CharaFilterManager
         );
     }
 
-    private void UpdateCacheState()
-    {
-        cacheActiveFilterIds = filterMap
-            .Where((wrapper) => wrapper.Value.active)
-            .Select((wrapper) => wrapper.Key)
-            .ToArray();
-    }
-
     public bool AddFilterContext(MonoBehaviour id, FilterContextBase context)
     {
-        if (!filterMap.TryAdd(id, new FilterWrapper(context)))
-            return false;
-        UpdateCacheState();
-        return true;
+        return filterMap.TryAdd(id, new FilterWrapper(context));
     }
 
     public bool GetFilterContext(MonoBehaviour id, out FilterContextBase context)
@@ -96,10 +86,15 @@ public abstract class CharaFilterManager
 
     public bool RemoveFilterContext(MonoBehaviour id)
     {
-        if (!filterMap.TryRemove(id, out _))
-            return false;
-        UpdateCacheState();
-        return true;
+        if (filterMap.TryRemove(id, out FilterWrapper wrapper))
+        {
+            if (wrapper.active)
+            {
+                cacheActiveFilterIds.Remove(id);
+            }
+            return true;
+        }
+        return false;
     }
 
     public void SetGuiHintPosition(Vector2 hint)
@@ -113,26 +108,35 @@ public abstract class CharaFilterManager
             return;
         lock (lockObj)
         {
-            filterMap[id].active = active;
+            var filter = filterMap[id];
+            var prevActive = filter.active;
+            filter.active = active;
             if (active)
             {
                 currTarget = id;
             }
+            if (prevActive == active)
+            {
+                return;
+            }
 
-            UpdateCacheState();
+            if (active)
+            {
+                cacheActiveFilterIds.Add(id);
+            }
+            else
+            {
+                cacheActiveFilterIds.Remove(id);
+            }
 
-            if (cacheActiveFilterIds.Length == 0)
+            if (cacheActiveFilterIds.Count == 0)
             {
                 globalFilterUI.enabled = false;
+                currTarget = null;
             }
             else if (autoOpen.Value)
             {
                 globalFilterUI.enabled = true;
-            }
-
-            if (cacheActiveFilterIds.Length == 0)
-            {
-                currTarget = null;
             }
         }
     }
@@ -254,10 +258,10 @@ public abstract class CharaFilterManager
 
         private void DrawListSelector()
         {
-            if (core.cacheActiveFilterIds.Length <= 1)
+            if (core.cacheActiveFilterIds.Count <= 1)
                 return;
             GUILayout.BeginHorizontal();
-            for (int i = 0; i < core.cacheActiveFilterIds.Length; i++)
+            for (int i = 0; i < core.cacheActiveFilterIds.Count; i++)
             {
                 var id = core.cacheActiveFilterIds[i];
                 GUIStyle style = id == core.currTarget ? GUI.skin.button : inactiveBtnStyle;
