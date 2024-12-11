@@ -8,6 +8,7 @@
     "My Work": "My Work",
     "Others Work": "Others Work",
     "Presets": "Presets",
+    "Untagged": "Untagged",
     "お嬢様": "Ojousama",
     "のんびり": "Relaxed",
     "やんちゃ": "Mischievous",
@@ -39,7 +40,6 @@
     "Multi-select": "Multi-select",
     "OR": "OR",
     "Populate": "Populate",
-    "Reset": "Reset",
-    "Untagged": "Untagged"
+    "Reset": "Reset"
   }
 }

@@ -8,6 +8,7 @@
     "My Work": "自制",
     "Others Work": "他作",
     "Presets": "预设",
+    "Untagged": "未分类",
     "お嬢様": "大小姐",
     "のんびり": "悠闲",
     "やんちゃ": "调皮",
@@ -39,7 +40,6 @@
     "Multi-select": "多选",
     "OR": "或",
     "Populate": "填充",
-    "Reset": "重置",
-    "Untagged": "未分类"
+    "Reset": "重置"
   }
 }
