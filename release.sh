@@ -20,6 +20,8 @@ for i in src/*; do
 
     install -D "${DIR}/artifacts/bin/${name}/release/"*.dll -t ./BepInEx/plugins
 
-    tar --sort=name --owner=root:0 --group=root:0 --mtime='UTC 1970-01-01' \
-        -a -cf "$DIR/artifacts/${name}-v${version}.zip" BepInEx
+    zipFile="$DIR/artifacts/${name}-v${version}.zip"
+
+    rm -f $zipFile
+    zip -r $zipFile .
 done
