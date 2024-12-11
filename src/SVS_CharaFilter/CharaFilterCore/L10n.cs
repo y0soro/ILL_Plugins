@@ -110,13 +110,17 @@ public static class L10n
 
     public static string TryGetAutoTranslatorLanguage()
     {
-        var path = Path.Combine(Paths.ConfigPath, "AutoTranslatorConfig.ini");
-        var lines = File.ReadAllLines(path);
-        foreach (var line in lines)
+        try
         {
-            if (line.StartsWith("Language="))
-                return line["Language=".Length..].Trim();
+            var path = Path.Combine(Paths.ConfigPath, "AutoTranslatorConfig.ini");
+            var lines = File.ReadAllLines(path);
+            foreach (var line in lines)
+            {
+                if (line.StartsWith("Language="))
+                    return line["Language=".Length..].Trim();
+            }
         }
+        catch (Exception) { }
         return null;
     }
 }
