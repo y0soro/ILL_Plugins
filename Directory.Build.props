@@ -5,7 +5,6 @@
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
     <Features>strict</Features>
-    <Version>0.0.1</Version>
     <Company>https://github.com/y0soro/ILL_Plugins</Company>
     <Copyright>MIT LICENSE - Copyright (c) 2024 y0soro</Copyright>
   </PropertyGroup>

@@ -7,11 +7,11 @@ DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 # see https://github.com/dotnet/runtime/issues/33745
 dotnet build --configuration Release -p:ContinuousIntegrationBuild=true -p:PublishTrimmed=false
 
-version=$(sed -n 's/.*<Version>\(.*\)<.*/\1/p' Directory.Build.props | tr -d '\n')
-
 for i in src/*; do
     name="${i#src/}"
     name="${name%/}"
+
+    version=$(sed -n 's/.*<Version>\(.*\)<.*/\1/p' "src/${name}/"*.csproj | tr -d '\n')
 
     echo $name
 
