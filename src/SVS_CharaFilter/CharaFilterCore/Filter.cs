@@ -548,7 +548,7 @@ public abstract class FilterContextBase
             if (!hasTag)
             {
                 AddDefaultGroup();
-                AddTag("Untagged", order: -1);
+                AddTag(L10n.Tag("Untagged"), order: -1);
             }
         }
     }
