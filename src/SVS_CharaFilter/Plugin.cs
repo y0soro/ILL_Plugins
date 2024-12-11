@@ -313,6 +313,7 @@ public class Plugin : BasePlugin
                         delegate(CustomFileInfo x)
                         {
                             filter.SetActiveItem(x);
+                            core.SetFilterContextActive(__instance, true);
                         }
                 );
                 ctrl._onChange.Subscribe(observer);
@@ -329,6 +330,7 @@ public class Plugin : BasePlugin
                         delegate(FusionFileInfo x)
                         {
                             filter.SetActiveItem(x);
+                            core.SetFilterContextActive(__instance, true);
                         }
                 );
                 ctrl1._onChange.Subscribe(observer);
@@ -346,6 +348,7 @@ public class Plugin : BasePlugin
                         delegate(UPFileInfo x)
                         {
                             filter.SetActiveItem(x);
+                            core.SetFilterContextActive(__instance, true);
                         }
                 );
                 ctrl2._onChange.Subscribe(observer);
@@ -363,6 +366,7 @@ public class Plugin : BasePlugin
                         delegate(EntryFileInfo x)
                         {
                             filter.SetActiveItem(x);
+                            core.SetFilterContextActive(__instance, true);
                         }
                 );
                 ctrl3._onChange.Subscribe(observer);
