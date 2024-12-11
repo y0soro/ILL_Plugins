@@ -182,6 +182,7 @@ public abstract class CharaFilterManager
         internal bool uiMultiSelect = false;
         private bool uiExcludeSelect = false;
 
+        internal string sourceGroupName = L10n.UI("Source");
         internal string textWindowTitle = L10n.UI("Chara Filter");
         internal string textReset = L10n.UI("Reset");
         internal string textPopulate = L10n.UI("Populate");
@@ -502,7 +503,7 @@ public abstract class CharaFilterManager
                 foreach (var groupState in filter.cacheGroupStates)
                 {
                     // ad-hoc improvement for uploader filter
-                    if (groupState.cacheTagStates.Count <= 1 && groupState.group == "Maker")
+                    if (groupState.cacheTagStates.Count <= 1 && groupState.group == sourceGroupName)
                         continue;
 
                     DrawGroup(3, filter, groupState, ref needUpdate);
