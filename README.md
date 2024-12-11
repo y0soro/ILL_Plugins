@@ -29,9 +29,9 @@ You can also tag a single card by adding `[TAG]` to filename of png card, e.g. `
 
 #### Features
 
--   "Multi-Select": When toggled off, you can only select on tag in each filtering group. When toggled on, you can also filtering multi cards in the same group, with AND or OR logic between selected tags.
+-   "Multi-Select": When toggled off, you can only select one tag in each filtering group. When toggled on, you can also filtering multi cards in the same group, with AND or OR logic between selected tags.
 -   "Exclude-Select": When toggled on, cards matching tags you selected next would be filtered out.
--   "Populate": Feed backs the tags of current selected card to filter UI. Useful if you have you don't remember the tags which current card belongs to.
+-   "Populate": Feed backs the tags of current selected card to filter UI. Useful if you don't remember the tags which current card belongs to.
 
 ### Advanced Usage
 
