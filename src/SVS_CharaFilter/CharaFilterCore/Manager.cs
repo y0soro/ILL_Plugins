@@ -6,6 +6,7 @@ using BepInEx.Configuration;
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
 using UnityEngine;
+using Object = System.Object;
 
 namespace CharaFilterCore;
 
@@ -19,11 +20,11 @@ public abstract class CharaFilterManager
     private readonly UpdateListener updateListener;
     private readonly FilterUI globalFilterUI;
 
-    private readonly ConcurrentDictionary<MonoBehaviour, FilterWrapper> filterMap = [];
-    private readonly List<MonoBehaviour> cacheActiveFilterIds = [];
+    private readonly ConcurrentDictionary<object, FilterWrapper> filterMap = [];
+    private readonly List<object> cacheActiveFilterIds = [];
 
     private readonly object lockObj = new();
-    private MonoBehaviour currTarget = null;
+    private object currTarget = null;
 
     private Vector2? guiHintPosition = null;
 
@@ -67,12 +68,12 @@ public abstract class CharaFilterManager
         );
     }
 
-    public bool AddFilterContext(MonoBehaviour id, FilterContextBase context)
+    public bool AddFilterContext(object id, FilterContextBase context)
     {
         return filterMap.TryAdd(id, new FilterWrapper(context));
     }
 
-    public bool GetFilterContext(MonoBehaviour id, out FilterContextBase context)
+    public bool GetFilterContext(object id, out FilterContextBase context)
     {
         if (filterMap.TryGetValue(id, out FilterWrapper wrapper))
         {
@@ -84,7 +85,7 @@ public abstract class CharaFilterManager
         return false;
     }
 
-    public bool RemoveFilterContext(MonoBehaviour id)
+    public bool RemoveFilterContext(object id)
     {
         if (filterMap.TryRemove(id, out FilterWrapper wrapper))
         {
@@ -102,7 +103,7 @@ public abstract class CharaFilterManager
         guiHintPosition = hint;
     }
 
-    public void SetFilterContextActive(MonoBehaviour id, bool active)
+    public void SetFilterContextActive(object id, bool active)
     {
         if (id == null)
             return;
@@ -141,7 +142,7 @@ public abstract class CharaFilterManager
         }
     }
 
-    protected abstract void OnUpdate(MonoBehaviour id, FilterContextBase context);
+    protected abstract void OnUpdate(object id, FilterContextBase context);
 
     private class KeyListener : MonoBehaviour
     {

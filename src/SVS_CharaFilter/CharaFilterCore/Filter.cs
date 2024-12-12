@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using BepInEx.Logging;
 using UnityEngine;
 
@@ -362,7 +361,7 @@ public abstract class FilterContextBase
             else
                 info.AddTag(L10n.Tag("Others Work"), gSource, 1);
 
-            if (!Personality.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(Personality))
             {
                 var gPersonality = L10n.Group("Personality");
                 info.AddGroup(gPersonality, -100, true);
@@ -489,7 +488,7 @@ public abstract class FilterContextBase
             if (tag.Length == 0)
                 return false;
 
-            if (!group.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(group))
             {
                 AddGroup(group, groupOrder, isMutex);
             }
@@ -560,10 +559,7 @@ public abstract class FilterContext<T> : FilterContextBase
     private readonly Dictionary<T, ItemInfo> infoCache = [];
     private readonly object lockObj = new();
 
-    protected virtual ItemInfo ConvertItemInfo(T item)
-    {
-        return new ItemInfo();
-    }
+    protected abstract ItemInfo ConvertItemInfo(T item);
 
     private ItemInfo ConvertAddItemInfo(T item)
     {

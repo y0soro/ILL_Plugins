@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,7 +28,7 @@ public class Plugin : BasePlugin
 
     private class SvsCharaFilterCore(BasePlugin plugin) : CharaFilterManager(plugin)
     {
-        protected override void OnUpdate(MonoBehaviour id, FilterContextBase context)
+        protected override void OnUpdate(object id, FilterContextBase context)
         {
             if (id is CustomFileListCtrl ctrl)
             {

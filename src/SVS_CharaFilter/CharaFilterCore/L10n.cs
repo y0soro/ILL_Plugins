@@ -24,7 +24,7 @@ public static class L10n
         if (translation != null)
             return;
         var lang = TryGetAutoTranslatorLanguage();
-        if (lang.IsNullOrEmpty())
+        if (string.IsNullOrEmpty(lang))
         {
             lang = Thread.CurrentThread.CurrentCulture.Name;
         }
@@ -86,7 +86,7 @@ public static class L10n
     {
         if (dict.TryGetValue(from, out string to))
         {
-            if (to.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(to))
                 return from;
             return to;
         }
