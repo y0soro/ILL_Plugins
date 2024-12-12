@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Product>DC_CharaFilter</Product>
-    <Version>0.0.2</Version>
+    <Version>0.0.3</Version>
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>DC_CharaFilter</AssemblyName>
     <RootNamespace>DC_CharaFilter</RootNamespace>

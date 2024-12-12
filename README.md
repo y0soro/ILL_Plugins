@@ -2,9 +2,9 @@
 
 y0soro's BepInEx Plugins for ILLGAMES.
 
-## SVS_CharaFilter
+## SVS_CharaFilter / DC_CharaFilter
 
-Character/coordinate card filter for SVS.
+Character/coordinate card filter for SVS and DigitalCraft.
 
 It allows you to filter character/coordinate cards with personalities and folder categories that managed by yourself.
 
