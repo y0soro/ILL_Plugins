@@ -185,7 +185,7 @@ public class Plugin : BasePlugin
         [HarmonyPatch(typeof(CharaFileSort), nameof(CharaFileSort.SetList))]
         private static void SetList(CharaFileSort __instance)
         {
-            Log.LogInfo($"set list \n{Il2CppSystem.Environment.StackTrace}");
+            Log.LogDebug($"SetList {__instance}");
 
             if (!GetFilter(__instance, out CharaFileSortFilter filter))
                 return;
@@ -211,7 +211,8 @@ public class Plugin : BasePlugin
         [HarmonyPatch(typeof(CharaList), nameof(CharaList.Start))]
         private static void Start(CharaList __instance)
         {
-            Log.LogInfo($"start \n{Il2CppSystem.Environment.StackTrace}");
+            Log.LogDebug($"Start {__instance}");
+
             var filter = new CharaFileSortFilter();
             var id = __instance;
             if (!core.AddFilterContext(id, filter))
@@ -228,7 +229,7 @@ public class Plugin : BasePlugin
         [HarmonyPatch(typeof(MPCharCtrl.CostumeInfo), nameof(MPCharCtrl.CostumeInfo.Init))]
         private static void Init(MPCharCtrl.CostumeInfo __instance, MPCharCtrl __0)
         {
-            Log.LogInfo($"Init \n{Il2CppSystem.Environment.StackTrace}");
+            Log.LogDebug($"Init {__instance}");
 
             var filter = new CharaFileSortFilter();
             var id = __instance;
