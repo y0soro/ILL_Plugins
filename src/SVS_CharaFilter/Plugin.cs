@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,6 +19,7 @@ using Network.Uploader.Chara;
 
 namespace SVS_CharaFilter;
 
+[BepInProcess("SamabakeScramble")]
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 public class Plugin : BasePlugin
 {
@@ -91,7 +92,7 @@ public class Plugin : BasePlugin
     {
         protected override ItemInfo ConvertItemInfo(FusionFileInfo item)
         {
-            return ItemInfo.FromIllInfo<CustomFileInfo>(
+            return ItemInfo.FromIllInfo<FusionFileInfo>(
                 item.FullPath,
                 null,
                 item.IsDefaultData,
@@ -133,27 +134,38 @@ public class Plugin : BasePlugin
 
     private class StateListener : MonoBehaviour
     {
-        private MonoBehaviour targetInstance;
+        private object id;
 
-        internal void Init(MonoBehaviour targetInstance_)
+        internal void Init(object id)
         {
-            targetInstance = targetInstance_;
-            core.SetFilterContextActive(targetInstance, true);
+            this.id = id;
         }
 
         private void OnEnable()
         {
-            core.SetFilterContextActive(targetInstance, true);
+            core.SetFilterContextActive(id, true);
         }
 
         private void OnDisable()
         {
-            core.SetFilterContextActive(targetInstance, false);
+            core.SetFilterContextActive(id, false);
         }
 
         private void OnDestroy()
         {
-            core.RemoveFilterContext(targetInstance);
+            core.RemoveFilterContext(id);
+        }
+
+        internal static StateListener Attach(Component target, object id)
+        {
+            RegisterIl2cppType<StateListener>();
+
+            var listener = target.gameObject.AddComponent<StateListener>();
+            listener.enabled = false;
+            listener.Init(id);
+            listener.enabled = true;
+
+            return listener;
         }
     }
 
@@ -293,7 +305,8 @@ public class Plugin : BasePlugin
             if (__instance is CustomFileListCtrl ctrl)
             {
                 var filter = new CustomFilter();
-                core.AddFilterContext(ctrl, filter);
+                if (!core.AddFilterContext(ctrl, filter))
+                    return;
 
                 // core.SetGuiHintPosition(new Vector2(400, 80));
                 core.SetGuiHintPosition(new Vector2(1920 - 350 - 350, 80));
@@ -311,7 +324,8 @@ public class Plugin : BasePlugin
             else if (__instance is FusionFileListControl ctrl1)
             {
                 var filter = new FusionFilter();
-                core.AddFilterContext(ctrl1, filter);
+                if (!core.AddFilterContext(ctrl1, filter))
+                    return;
 
                 core.SetGuiHintPosition(new Vector2(1920 - 350 - 350, 80));
 
@@ -329,7 +343,8 @@ public class Plugin : BasePlugin
             else if (__instance is UPFileListCtrl ctrl2)
             {
                 var filter = new UploaderFilter();
-                core.AddFilterContext(ctrl2, filter);
+                if (!core.AddFilterContext(ctrl2, filter))
+                    return;
 
                 core.SetGuiHintPosition(new Vector2(1420, 4));
 
@@ -347,7 +362,8 @@ public class Plugin : BasePlugin
             else if (__instance is EntryFileListCtrl ctrl3)
             {
                 var filter = new EntrySceneFilter();
-                core.AddFilterContext(ctrl3, filter);
+                if (!core.AddFilterContext(ctrl3, filter))
+                    return;
 
                 core.SetGuiHintPosition(new Vector2(350, 126));
 
@@ -366,9 +382,7 @@ public class Plugin : BasePlugin
                 throw null;
             }
 
-            RegisterIl2cppType<StateListener>();
-            var listener = __instance.gameObject.AddComponent<StateListener>();
-            listener.Init(__instance);
+            StateListener.Attach(__instance, __instance);
         }
 
         [HarmonyReversePatch]
