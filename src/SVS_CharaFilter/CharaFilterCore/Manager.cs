@@ -199,7 +199,7 @@ public abstract class CharaFilterManager
         internal bool uiMultiSelect = false;
         private bool uiExcludeSelect = false;
 
-        internal string sourceGroupName = L10n.UI("Source");
+        internal string sourceGroupName = L10n.Group("Source");
         internal string textWindowTitle = L10n.UI("Chara Filter");
         internal string textReset = L10n.UI("Reset");
         internal string textPopulate = L10n.UI("Populate");
