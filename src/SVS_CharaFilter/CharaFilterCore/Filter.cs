@@ -524,7 +524,6 @@ public abstract class FilterContextBase
 
         public void AddIllPngPath(string path)
         {
-            AddDefaultGroup();
             path = Path.GetRelativePath(Application.dataPath, path);
 
             bool hasTag = false;
