@@ -3,11 +3,11 @@ set -e
 
 DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
+cd $DIR
+
 # set -p:PublishTrimmed=false to avoid triggering virus false-positive,
 # see https://github.com/dotnet/runtime/issues/33745
 dotnet build --configuration Release -p:ContinuousIntegrationBuild=true -p:PublishTrimmed=false
-
-cd $DIR
 
 git_version() {
     local prefix=$1
