@@ -375,13 +375,27 @@ public abstract class FilterContextBase
 
         public void AddGroup(string group, int? order, bool? isMutex)
         {
-            groups[group] = new GroupTags
+            if (groups.TryGetValue(group, out GroupTags groupTags))
             {
-                group = group,
-                order = order,
-                isMutex = isMutex,
-                tags = [],
-            };
+                if (order is int order_)
+                {
+                    groupTags.order = order_;
+                }
+                if (isMutex is bool isMutex_)
+                {
+                    groupTags.isMutex = isMutex_;
+                }
+            }
+            else
+            {
+                groups[group] = new GroupTags
+                {
+                    group = group,
+                    order = order,
+                    isMutex = isMutex,
+                    tags = [],
+                };
+            }
         }
 
         public void AddDefaultGroup()
@@ -397,7 +411,18 @@ public abstract class FilterContextBase
                 group = L10n.Group(defaultGroup);
             }
             var groupTags = groups[group];
-            groupTags.tags[tag] = new Tag { tag = tag, order = order };
+
+            if (groupTags.tags.TryGetValue(tag, out Tag tagInfo))
+            {
+                if (order is int order_)
+                {
+                    tagInfo.order = order_;
+                }
+            }
+            else
+            {
+                groupTags.tags[tag] = new Tag { tag = tag, order = order };
+            }
         }
 
         private bool AddPathTag(string pathTag)
