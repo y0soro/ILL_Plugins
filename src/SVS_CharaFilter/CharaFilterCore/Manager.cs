@@ -45,14 +45,6 @@ public abstract class CharaFilterManager
         Log = plugin.Log;
         FilterContextBase.Log = Log;
 
-        updateListener = plugin.AddComponent<UpdateListener>();
-        updateListener.core = this;
-        updateListener.enabled = true;
-
-        globalFilterUI = plugin.AddComponent<FilterUI>();
-        globalFilterUI.enabled = false;
-        globalFilterUI.core = this;
-
         autoOpen = plugin.Config.Bind(
             "General",
             "Auto Open",
@@ -66,6 +58,26 @@ public abstract class CharaFilterManager
             new KeyboardShortcut(KeyCode.F, KeyCode.LeftControl),
             "Shortcut key to toggle filter UI."
         );
+
+        var lang = plugin
+            .Config.Bind(
+                "General",
+                "Language",
+                "",
+                "L10n Language usage, auto-detect if empty, one of en, ja-JP or zh-CN. Needs restart to take effect."
+            )
+            .Value;
+
+        // IMPORTANT: init l10n before init UI classes
+        L10n.Init(lang);
+
+        updateListener = plugin.AddComponent<UpdateListener>();
+        updateListener.core = this;
+        updateListener.enabled = true;
+
+        globalFilterUI = plugin.AddComponent<FilterUI>();
+        globalFilterUI.enabled = false;
+        globalFilterUI.core = this;
     }
 
     public bool AddFilterContext(object id, FilterContextBase context)

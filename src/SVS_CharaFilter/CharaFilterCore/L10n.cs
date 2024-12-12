@@ -17,16 +17,20 @@ internal class Translation
 
 public static class L10n
 {
-    private static Translation translation = null;
+    private static bool initialized = false;
+    private static Translation translation = new();
 
-    static L10n()
+    public static void Init(string lang = null)
     {
-        if (translation != null)
+        if (initialized)
             return;
-        var lang = TryGetAutoTranslatorLanguage();
-        if (string.IsNullOrEmpty(lang))
+        if (string.IsNullOrWhiteSpace(lang))
         {
-            lang = Thread.CurrentThread.CurrentCulture.Name;
+            lang = TryGetAutoTranslatorLanguage();
+            if (string.IsNullOrEmpty(lang))
+            {
+                lang = Thread.CurrentThread.CurrentCulture.Name;
+            }
         }
 
         var index = lang.Length;
@@ -80,6 +84,8 @@ public static class L10n
                 ui = [],
             };
         }
+
+        initialized = true;
     }
 
     private static string GetTranslation(Dictionary<string, string> dict, string from)
