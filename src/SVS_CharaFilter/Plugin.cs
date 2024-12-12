@@ -157,16 +157,26 @@ public class Plugin : BasePlugin
         }
     }
 
-    private static void FilterFileList(CustomFileListCtrl __instance, bool collectNew)
+    private static bool CollectFileList<Info, InfoComp, Filter>(
+        FileListUI.ThreadFileListCtrl<Info, InfoComp> __instance,
+        bool collectNew,
+        out Filter filter
+    )
+        where Info : FileListUI.ThreadFileInfo
+        where InfoComp : FileListUI.ThreadFileInfoComponent
+        where Filter : FilterContext<Info>
     {
         if (!core.GetFilterContext(__instance, out FilterContextBase filterBase))
-            return;
+        {
+            filter = null;
+            return false;
+        }
 
-        var filter = (CustomFilter)filterBase;
+        filter = (Filter)filterBase;
 
         if (collectNew)
         {
-            IEnumerable<CustomFileInfo> fileList()
+            IEnumerable<Info> fileList()
             {
                 foreach (var item in __instance.fileList)
                 {
@@ -175,6 +185,14 @@ public class Plugin : BasePlugin
             }
             filter.CollectNew(fileList());
         }
+
+        return true;
+    }
+
+    private static void FilterFileList(CustomFileListCtrl __instance, bool collectNew)
+    {
+        if (!CollectFileList(__instance, collectNew, out CustomFilter filter))
+            return;
 
         foreach (var info in __instance.fileList)
         {
@@ -184,22 +202,8 @@ public class Plugin : BasePlugin
 
     private static void FilterFileList(FusionFileListControl __instance, bool collectNew)
     {
-        if (!core.GetFilterContext(__instance, out FilterContextBase filterBase))
+        if (!CollectFileList(__instance, collectNew, out FusionFilter filter))
             return;
-
-        var filter = (FusionFilter)filterBase;
-
-        if (collectNew)
-        {
-            IEnumerable<FusionFileInfo> fileList()
-            {
-                foreach (var item in __instance.fileList)
-                {
-                    yield return item;
-                }
-            }
-            filter.CollectNew(fileList());
-        }
 
         foreach (var info in __instance.fileList)
         {
@@ -210,22 +214,8 @@ public class Plugin : BasePlugin
 #if UPLOADER
     private static void FilterFileList(UPFileListCtrl __instance, bool collectNew)
     {
-        if (!core.GetFilterContext(__instance, out FilterContextBase filterBase))
+        if (!CollectFileList(__instance, collectNew, out UploaderFilter filter))
             return;
-
-        var filter = (UploaderFilter)filterBase;
-
-        if (collectNew)
-        {
-            IEnumerable<UPFileInfo> fileList()
-            {
-                foreach (var item in __instance.fileList)
-                {
-                    yield return item;
-                }
-            }
-            filter.CollectNew(fileList());
-        }
 
         foreach (var info in __instance.fileList)
         {
