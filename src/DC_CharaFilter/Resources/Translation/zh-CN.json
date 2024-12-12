@@ -1,0 +1,21 @@
+{
+  "groupName": {
+    "Default Group": "默认分组",
+    "Type": "类型"
+  },
+  "tagName": {
+    "HC": "HoneyCome",
+    "SV": "夏日狂欢"
+  },
+  "ui": {
+    "AND": "且",
+    "All": "全部",
+    "Chara Filter": "Chara Filter",
+    "Exclude-select": "反选",
+    "List #{0}": "列表 #{0}",
+    "Multi-select": "多选",
+    "OR": "或",
+    "Populate": "填充",
+    "Reset": "重置"
+  }
+}

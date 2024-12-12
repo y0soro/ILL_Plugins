@@ -1,0 +1,21 @@
+{
+  "groupName": {
+    "Default Group": "Default Group",
+    "Kind": "Kind"
+  },
+  "tagName": {
+    "HC": "HoneyCome",
+    "SV": "SVS"
+  },
+  "ui": {
+    "AND": "AND",
+    "All": "All",
+    "Chara Filter": "Chara Filter",
+    "Exclude-select": "Exclude-select",
+    "List #{0}": "List #{0}",
+    "Multi-select": "Multi-select",
+    "OR": "OR",
+    "Populate": "Populate",
+    "Reset": "Reset"
+  }
+}

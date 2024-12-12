@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Product>DC_CharaFilter</Product>
+    <Version>0.0.2</Version>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>DC_CharaFilter</AssemblyName>
+    <RootNamespace>DC_CharaFilter</RootNamespace>
+    <Description>Character/coordinate card filter for DigitalCraft 2.0.0</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.KeyboardShortcut.IL2CPP" Version="18.3.0" />
+    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.725" IncludeAssets="compile" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
+    <PackageReference Include="IllusionLibs.HoneyCome.Il2Cppmscorlib" Version="2023.99.12.15" />
+    <PackageReference Include="IllusionLibs.HoneyCome.UnityEngine" Version="2021.3.14.3" />
+    <PackageReference Include="IllusionLibs.HoneyCome.UnityEngine.ImageConversionModule"
+      Version="2021.3.14.3" />
+    <PackageReference Include="IllusionLibs.HoneyCome.UnityEngine.UI" Version="2021.3.14.3" />
+    <PackageReference Include="IllusionLibs.HoneyComeStudio.Assembly-CSharp"
+      Version="2023.101.12.22" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <!-- DC that updated with support of SVS -->
+      <HintPath>Libraries/Assembly-CSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="../SVS_CharaFilter/CharaFilterCore/**/*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/Translation/*.json" />
+    <EmbeddedResource Include="../SVS_CharaFilter/CharaFilterCore/Resources/*.png" />
+  </ItemGroup>
+</Project>
