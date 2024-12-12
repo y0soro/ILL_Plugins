@@ -47,8 +47,8 @@ public class Plugin : BasePlugin
             ItemInfo info = new();
             info.AddIllPngPath(item.file);
 
-            string gType = "Type";
-            info.AddGroup(L10n.Group(gType), -100, true);
+            string gType = L10n.Group("Type");
+            info.AddGroup(gType, -100, true);
 
             string tType;
             if (item.Kind == 1)
@@ -57,7 +57,7 @@ public class Plugin : BasePlugin
             }
             else if (item.Kind == 2)
             {
-                tType = L10n.Tag("SVS");
+                tType = L10n.Tag("SV");
             }
             else
             {
