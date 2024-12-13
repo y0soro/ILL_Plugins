@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx;
@@ -109,10 +110,14 @@ public class Plugin : BasePlugin
         }
     }
 
-    private static bool GetFilter(CharaFileSort __instance, out CharaFileSortFilter filter)
+    private static bool GetFilter(
+        CharaFileSort __instance,
+        out object id,
+        out CharaFileSortFilter filter
+    )
     {
         if (
-            !idMap.TryGetValue(__instance, out object id)
+            !idMap.TryGetValue(__instance, out id)
             || !core.GetFilterContext(id, out FilterContextBase filterBase)
         )
         {
@@ -126,7 +131,7 @@ public class Plugin : BasePlugin
 
     private static void SetSelected(CharaFileSort fileSort)
     {
-        if (!GetFilter(fileSort, out CharaFileSortFilter filter))
+        if (!GetFilter(fileSort, out _, out CharaFileSortFilter filter))
             return;
 
         filter.SetActiveItem(fileSort[fileSort.select]);
@@ -187,17 +192,26 @@ public class Plugin : BasePlugin
         {
             Log.LogDebug($"SetList {__instance}");
 
-            if (!GetFilter(__instance, out CharaFileSortFilter filter))
-                return;
-
-            IEnumerable<CharaFileInfo> fileList()
+            try
             {
-                foreach (var item in __instance.cfiList)
+                if (!GetFilter(__instance, out object id, out CharaFileSortFilter filter))
+                    return;
+
+                IEnumerable<CharaFileInfo> fileList()
                 {
-                    yield return item;
+                    foreach (var item in __instance.cfiList)
+                    {
+                        yield return item;
+                    }
                 }
+                filter.CollectNew(fileList());
+
+                FilterList(id, filter);
             }
-            filter.CollectNew(fileList());
+            catch (Exception e)
+            {
+                Log.LogError(e);
+            }
         }
 
         [HarmonyPrefix]
