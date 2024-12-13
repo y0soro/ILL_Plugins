@@ -342,13 +342,12 @@ public abstract class FilterContextBase
             internal int? order;
         }
 
-        public static ItemInfo FromIllInfo<T>(
+        public static ItemInfo FromIllInfo(
             string FullPath,
             string Personality,
             bool IsDefaultData,
             bool IsMyData
         )
-            where T : class
         {
             var info = new ItemInfo();
 

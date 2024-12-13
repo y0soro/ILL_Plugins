@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -79,7 +79,7 @@ public class Plugin : BasePlugin
     {
         protected override ItemInfo ConvertItemInfo(CustomFileInfo item)
         {
-            return ItemInfo.FromIllInfo<CustomFileInfo>(
+            return ItemInfo.FromIllInfo(
                 item.FullPath,
                 item.Personality,
                 item.IsDefaultData,
@@ -92,12 +92,7 @@ public class Plugin : BasePlugin
     {
         protected override ItemInfo ConvertItemInfo(FusionFileInfo item)
         {
-            return ItemInfo.FromIllInfo<FusionFileInfo>(
-                item.FullPath,
-                null,
-                item.IsDefaultData,
-                item.IsMyData
-            );
+            return ItemInfo.FromIllInfo(item.FullPath, null, item.IsDefaultData, item.IsMyData);
         }
     }
 
@@ -109,7 +104,7 @@ public class Plugin : BasePlugin
             // prevent user from uploading cards not marked as self-made
             if (!item.IsMyData || item.IsDefaultData)
                 return null;
-            return ItemInfo.FromIllInfo<UPFileInfo>(
+            return ItemInfo.FromIllInfo(
                 item.FullPath,
                 item.Personality,
                 item.IsDefaultData,
@@ -123,7 +118,7 @@ public class Plugin : BasePlugin
     {
         protected override ItemInfo ConvertItemInfo(EntryFileInfo item)
         {
-            return ItemInfo.FromIllInfo<EntryFileInfo>(
+            return ItemInfo.FromIllInfo(
                 item.FullPath,
                 item.Personality,
                 item.IsDefaultData,
