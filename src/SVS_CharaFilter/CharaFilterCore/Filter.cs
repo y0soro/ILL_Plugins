@@ -588,9 +588,9 @@ public abstract class FilterContext<T> : FilterContextBase
     private ItemInfo ConvertAddItemInfo(T item)
     {
         var info = ConvertItemInfo(item);
+        infoCache.TryAdd(item, info);
         if (info == null)
             return null;
-        infoCache.TryAdd(item, info);
         return info;
     }
 
