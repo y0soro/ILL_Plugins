@@ -512,6 +512,9 @@ public class Plugin : BasePlugin
         [HarmonyPatch(typeof(SelectChaCoordinateInfo), nameof(SelectChaCoordinateInfo.Sort))]
         private static void Sort(SelectChaCoordinateInfo __instance)
         {
+            if (SelectCoordFilter.Sorting)
+                return;
+
             if (!core.GetFilterContext(__instance, out FilterContextBase filterBase))
                 return;
 
@@ -529,6 +532,9 @@ public class Plugin : BasePlugin
 
         [ThreadStatic]
         private static SelectCoodinateCard lastInstance;
+
+        [ThreadStatic]
+        internal static bool Sorting;
 
         private readonly SelectCoodinateCard selectCord;
         private readonly SelectChaCoordinateInfo infoSort;
@@ -596,9 +602,11 @@ public class Plugin : BasePlugin
                 infoSort._infoIdxes.Add(i);
             }
 
+            Sorting = true;
             // this redraws list, calling twice to preserve the original order
             selectCord._sortOrder._button.Press();
             selectCord._sortOrder._button.Press();
+            Sorting = false;
         }
 
         internal void SetActive(bool active)

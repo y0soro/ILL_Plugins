@@ -71,7 +71,7 @@ public class Plugin : BasePlugin
         }
     }
 
-    private static void FilterList(object id, CharaFileSortFilter filter)
+    private static void FilterList(object id, CharaFileSortFilter filter, bool doSort = true)
     {
         int DoFilter(CharaFileSort fileSort)
         {
@@ -92,17 +92,23 @@ public class Plugin : BasePlugin
         {
             var sort = DoFilter(charaList.charaFileSort);
 
-            // sort would also re-renders list
-            charaList.OnSort(sort);
-            charaList.OnSort(sort);
+            if (doSort)
+            {
+                // sort would also re-renders list
+                charaList.OnSort(sort);
+                charaList.OnSort(sort);
+            }
         }
         else if (id is MPCharCtrl.CostumeInfo costumeInfo)
         {
             var sort = DoFilter(costumeInfo.fileSort);
 
-            // sort would also re-renders list
-            costumeInfo.OnClickSort(sort);
-            costumeInfo.OnClickSort(sort);
+            if (doSort)
+            {
+                // sort would also re-renders list
+                costumeInfo.OnClickSort(sort);
+                costumeInfo.OnClickSort(sort);
+            }
         }
         else
         {
@@ -206,7 +212,7 @@ public class Plugin : BasePlugin
                 }
                 filter.CollectNew(fileList());
 
-                FilterList(id, filter);
+                FilterList(id, filter, doSort: false);
             }
             catch (Exception e)
             {
