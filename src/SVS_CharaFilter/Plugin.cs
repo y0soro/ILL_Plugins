@@ -297,18 +297,11 @@ public class Plugin : BasePlugin
             return false;
         }
 
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(CustomFileListCtrl), nameof(CustomFileListCtrl.Awake))]
-        [HarmonyPatch(typeof(FusionFileListControl), nameof(FusionFileListControl.Awake))]
-#if UPLOADER
-        [HarmonyPatch(typeof(UPFileListCtrl), nameof(UPFileListCtrl.Awake))]
-#endif
-        [HarmonyPatch(typeof(EntryFileListCtrl), nameof(EntryFileListCtrl.Awake))]
-        private static void AwakePost(MonoBehaviour __instance)
+        private static void HookAwakePost(MonoBehaviour instance)
         {
-            Log.LogDebug($"FileListCtrl Awake Post {__instance}");
+            Log.LogDebug($"FileListCtrl Awake Post {instance}");
 
-            if (__instance is CustomFileListCtrl ctrl)
+            if (instance is CustomFileListCtrl ctrl)
             {
                 var filter = new CustomFilter();
                 if (!core.AddFilterContext(ctrl, filter))
@@ -322,12 +315,12 @@ public class Plugin : BasePlugin
                         delegate(CustomFileInfo x)
                         {
                             filter.SetActiveItem(x);
-                            core.SetFilterContextActive(__instance, true);
+                            core.SetFilterContextActive(instance, true);
                         }
                 );
                 ctrl._onChange.Subscribe(observer);
             }
-            else if (__instance is FusionFileListControl ctrl1)
+            else if (instance is FusionFileListControl ctrl1)
             {
                 var filter = new FusionFilter();
                 if (!core.AddFilterContext(ctrl1, filter))
@@ -340,13 +333,13 @@ public class Plugin : BasePlugin
                         delegate(FusionFileInfo x)
                         {
                             filter.SetActiveItem(x);
-                            core.SetFilterContextActive(__instance, true);
+                            core.SetFilterContextActive(instance, true);
                         }
                 );
                 ctrl1._onChange.Subscribe(observer);
             }
 #if UPLOADER
-            else if (__instance is UPFileListCtrl ctrl2)
+            else if (instance is UPFileListCtrl ctrl2)
             {
                 var filter = new UploaderFilter();
                 if (!core.AddFilterContext(ctrl2, filter))
@@ -359,13 +352,13 @@ public class Plugin : BasePlugin
                         delegate(UPFileInfo x)
                         {
                             filter.SetActiveItem(x);
-                            core.SetFilterContextActive(__instance, true);
+                            core.SetFilterContextActive(instance, true);
                         }
                 );
                 ctrl2._onChange.Subscribe(observer);
             }
 #endif
-            else if (__instance is EntryFileListCtrl ctrl3)
+            else if (instance is EntryFileListCtrl ctrl3)
             {
                 var filter = new EntrySceneFilter();
                 if (!core.AddFilterContext(ctrl3, filter))
@@ -378,7 +371,7 @@ public class Plugin : BasePlugin
                         delegate(EntryFileInfo x)
                         {
                             filter.SetActiveItem(x);
-                            core.SetFilterContextActive(__instance, true);
+                            core.SetFilterContextActive(instance, true);
                         }
                 );
                 ctrl3._onChange.Subscribe(observer);
@@ -388,7 +381,27 @@ public class Plugin : BasePlugin
                 throw null;
             }
 
-            StateListener.Attach(__instance, __instance);
+            StateListener.Attach(instance, instance);
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(CustomFileListCtrl), nameof(CustomFileListCtrl.Awake))]
+        [HarmonyPatch(typeof(FusionFileListControl), nameof(FusionFileListControl.Awake))]
+#if UPLOADER
+        [HarmonyPatch(typeof(UPFileListCtrl), nameof(UPFileListCtrl.Awake))]
+#endif
+        [HarmonyPatch(typeof(EntryFileListCtrl), nameof(EntryFileListCtrl.Awake))]
+        private static void AwakePost(MonoBehaviour __instance)
+        {
+            try
+            {
+                HookAwakePost(__instance);
+            }
+            catch (Exception e)
+            {
+                Log.LogError(e);
+                core.ShowError(e);
+            }
         }
 
         [HarmonyReversePatch]
@@ -455,8 +468,8 @@ public class Plugin : BasePlugin
             }
             catch (Exception e)
             {
-                // XXX: pass error to filter UI
                 Log.LogError(e);
+                core.ShowError(e);
             }
         }
 

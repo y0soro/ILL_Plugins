@@ -15,6 +15,7 @@ public abstract class CharaFilterManager
 
     private readonly ConfigEntry<KeyboardShortcut> toggleShortcut;
     private readonly ConfigEntry<bool> autoOpen;
+    private readonly ConfigEntry<bool> isShowError;
 
     private readonly UpdateListener updateListener;
     private readonly FilterUI globalFilterUI;
@@ -26,6 +27,8 @@ public abstract class CharaFilterManager
     private object currTarget = null;
 
     private Vector2? guiHintPosition = null;
+
+    private readonly Queue<string> errors = [];
 
     private class FilterWrapper
     {
@@ -66,6 +69,13 @@ public abstract class CharaFilterManager
                 "L10n Language usage, auto-detect if empty, one of en, ja-JP or zh-CN. Needs restart to take effect."
             )
             .Value;
+
+        isShowError = plugin.Config.Bind(
+            "General",
+            "Show Error",
+            true,
+            "Show errors captured during filtering in filter UI."
+        );
 
         // IMPORTANT: init l10n before init UI classes
         L10n.Init(lang);
@@ -112,6 +122,15 @@ public abstract class CharaFilterManager
     public void SetGuiHintPosition(Vector2 hint)
     {
         guiHintPosition = hint;
+    }
+
+    public void ShowError(Exception error)
+    {
+        if (errors.Count > 10)
+        {
+            errors.Dequeue();
+        }
+        errors.Enqueue(error.ToString());
     }
 
     public void SetFilterContextActive(object id, bool active)
@@ -493,6 +512,22 @@ public abstract class CharaFilterManager
             }
         }
 
+        private void DrawErrors()
+        {
+            if (core.errors.Count == 0 || !core.isShowError.Value)
+                return;
+
+            if (GUILayout.Button("Clear Errors"))
+            {
+                core.errors.Clear();
+            }
+
+            foreach (var error in core.errors)
+            {
+                GUILayout.TextArea(error);
+            }
+        }
+
         private void MainWindowFunc(int id)
         {
             var currTarget = core.currTarget;
@@ -517,6 +552,8 @@ public abstract class CharaFilterManager
                     GUILayout.ExpandHeight(true)
                 );
 
+                DrawErrors();
+
                 GUILayout.BeginVertical();
                 foreach (var groupState in filter.cacheGroupStates)
                 {
@@ -540,7 +577,15 @@ public abstract class CharaFilterManager
 
             if (needUpdate)
             {
-                core.OnUpdate(currTarget, filter);
+                try
+                {
+                    core.OnUpdate(currTarget, filter);
+                }
+                catch (Exception e)
+                {
+                    Log.LogError(e);
+                    core.ShowError(e);
+                }
             }
         }
 

@@ -211,6 +211,7 @@ public class Plugin : BasePlugin
             catch (Exception e)
             {
                 Log.LogError(e);
+                core.ShowError(e);
             }
         }
 
