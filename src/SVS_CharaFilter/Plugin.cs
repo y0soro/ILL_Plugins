@@ -59,9 +59,7 @@ public class Plugin : BasePlugin
             }
             else if (id is SelectChaCoordinateInfo select)
             {
-                if (!core.GetFilterContext(select, out FilterContextBase filterBase))
-                    return;
-                var filter = (SelectCoordFilter)filterBase;
+                var filter = (SelectCoordFilter)context;
                 filter.Filter();
             }
             else
