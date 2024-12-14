@@ -371,7 +371,7 @@ public class Plugin : BasePlugin
                 if (!core.AddFilterContext(ctrl3, filter))
                     return;
 
-                core.SetGuiHintPosition(new Vector2(350, 126));
+                core.SetGuiHintPosition(new Vector2(1400, 130));
 
                 var observer = Observer.Create(
                     (Il2CppSystem.Action<EntryFileInfo>)
