@@ -13,6 +13,8 @@ This is extremely useful if you have hundreds of character cards that the origin
 Currently this works for character/coordinate selection in character/coordinate creation scene, character fusion scene, uploader scene and
 character selection scene in "town" entry.
 
+For DC_CharaFilter, you would need DigitalCraft>=2.0.0 with SVS support.
+
 Update [UI translation](src/SVS_CharaFilter/CharaFilterCore/Resources/Translation/) there.
 
 ![SVS_CharaFilter Screenshot](./docs/SVS_CharaFilter.png)
@@ -23,7 +25,7 @@ Update [UI translation](src/SVS_CharaFilter/CharaFilterCore/Resources/Translatio
 
 ### Usage
 
-To categorize cards, create a folder with your category name in character/coordinate folder (e.g. `UserData/chara/female/`) and move cards into the former (e.g. `UserData/chara/female/foo`).
+To categorize cards, create a folder with your category name in character/coordinate folder (e.g. `UserData/chara/female/`) and move cards into the former (e.g. `UserData/chara/female/foo`). Note to not put invalid filename characters into folder name otherwise card loading would fail.
 
 You can also tag a single card by adding `[TAG]` to filename of png card, e.g. `[bar] MyChara.png`.
 
