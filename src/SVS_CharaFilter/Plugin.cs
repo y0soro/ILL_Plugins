@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,8 +12,11 @@ using HarmonyLib;
 using Il2CppInterop.Runtime.Injection;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using SV.EntryScene;
+using SV.H.UI.ClothesSettingMenu;
 using UniRx;
 using UnityEngine;
+using ManagerChaCoordinateInfo = Localize.Translate.Manager.ChaCoordinateInfo;
+using SelectChaCoordinateInfo = SV.H.UI.ClothesSettingMenu.SelectCoodinateCard.ChaCoordinateInfo;
 #if UPLOADER
 using Network.Uploader.Chara;
 #endif
@@ -53,6 +57,13 @@ public class Plugin : BasePlugin
                 FilterFileList(ctrl3, false);
                 Hooks.OrigOnUpdate(ctrl3);
             }
+            else if (id is SelectChaCoordinateInfo select)
+            {
+                if (!core.GetFilterContext(select, out FilterContextBase filterBase))
+                    return;
+                var filter = (SelectCoordFilter)filterBase;
+                filter.Filter();
+            }
             else
             {
                 throw null;
@@ -69,6 +80,8 @@ public class Plugin : BasePlugin
         Harmony.CreateAndPatchAll(typeof(Hooks), MyPluginInfo.PLUGIN_GUID);
     }
 
+    // FIXME: make sure to have different type name of registered type in the same namespace,
+    //        the keying of type is broken in ClassInjector.RegisterTypeInIl2Cpp
     private static void RegisterIl2cppType<T>()
     {
         if (!ClassInjector.IsTypeRegisteredInIl2Cpp(typeof(T)))
@@ -446,6 +459,202 @@ public class Plugin : BasePlugin
             {
                 // XXX: pass error to filter UI
                 Log.LogError(e);
+            }
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(SelectCoodinateCard), nameof(SelectCoodinateCard.Awake))]
+        private static void Awake(SelectCoodinateCard __instance)
+        {
+            SelectCoordFilter.TrackInstance(__instance);
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(SelectChaCoordinateInfo), nameof(SelectChaCoordinateInfo.Load))]
+        private static void Load(SelectChaCoordinateInfo __instance, byte __0)
+        {
+            try
+            {
+                SelectCoordFilter filter;
+                if (core.GetFilterContext(__instance, out FilterContextBase filterBase))
+                {
+                    filter = (SelectCoordFilter)filterBase;
+                }
+                else if (!SelectCoordFilter.TryNew(__instance, out filter))
+                {
+                    return;
+                }
+
+                filter.CollectNew();
+                filter.Filter();
+
+                core.SetGuiHintPosition(new Vector2(290, 240));
+                filter.SetActive(true);
+            }
+            catch (Exception e)
+            {
+                Log.LogError(e);
+            }
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(SelectChaCoordinateInfo), nameof(SelectChaCoordinateInfo.Sort))]
+        private static void Sort(SelectChaCoordinateInfo __instance)
+        {
+            if (!core.GetFilterContext(__instance, out FilterContextBase filterBase))
+                return;
+
+            var filter = (SelectCoordFilter)filterBase;
+            filter.SetActive(true);
+        }
+    }
+
+    private class SelectCoordFilter : FilterContext<ManagerChaCoordinateInfo>
+    {
+        private static readonly ConcurrentDictionary<
+            SelectCoodinateCard,
+            HashSet<SelectCoordFilter>
+        > InstanceTracks = [];
+
+        [ThreadStatic]
+        private static SelectCoodinateCard lastInstance;
+
+        private readonly SelectCoodinateCard selectCord;
+        private readonly SelectChaCoordinateInfo infoSort;
+
+        private ManagerChaCoordinateInfo[] targetInfos = [];
+
+        internal static void TrackInstance(SelectCoodinateCard instance)
+        {
+            InstanceTracks.TryAdd(instance, []);
+            lastInstance = instance;
+            SelectCoordStateListener.Attach(instance, instance);
+        }
+
+        internal static bool TryNew(SelectChaCoordinateInfo instance, out SelectCoordFilter filter)
+        {
+            SelectCoodinateCard selectCord = null;
+            foreach (var parent in InstanceTracks.Keys)
+            {
+                if (parent.useInfos != instance && !parent.coordinateInfos.Contains(instance))
+                    continue;
+
+                selectCord = parent;
+                break;
+            }
+
+            if (selectCord == null)
+            {
+                if (lastInstance == null)
+                {
+                    filter = null;
+                    return false;
+                }
+                // assume the last is what we want
+                selectCord = lastInstance;
+            }
+
+            filter = new(selectCord, instance);
+            InstanceTracks[selectCord].Add(filter);
+            core.AddFilterContext(instance, filter);
+
+            return true;
+        }
+
+        private SelectCoordFilter(SelectCoodinateCard selectCord, SelectChaCoordinateInfo infoSort)
+        {
+            this.selectCord = selectCord;
+            this.infoSort = infoSort;
+        }
+
+        internal void CollectNew()
+        {
+            targetInfos = [.. infoSort._info];
+            CollectNew(targetInfos);
+        }
+
+        internal void Filter()
+        {
+            var infoArray = targetInfos.Where(FilterIn).ToArray();
+            infoSort._info = infoArray;
+            infoSort.InfoLength = infoArray.Length;
+
+            infoSort._infoIdxes.Clear();
+            for (var i = 0; i < infoArray.Length; i++)
+            {
+                infoSort._infoIdxes.Add(i);
+            }
+
+            // this redraws list, calling twice to preserve the original order
+            selectCord._sortOrder._button.Press();
+            selectCord._sortOrder._button.Press();
+        }
+
+        internal void SetActive(bool active)
+        {
+            core.SetFilterContextActive(infoSort, active);
+        }
+
+        protected override ItemInfo ConvertItemInfo(ManagerChaCoordinateInfo item)
+        {
+            return ItemInfo.FromIllInfo(item.info.FullPath, null, item.isDefault, false);
+        }
+
+        private class SelectCoordStateListener : MonoBehaviour
+        {
+            private SelectCoodinateCard selectCoord = null;
+
+            private void SetActive(bool active)
+            {
+                if (selectCoord == null)
+                    return;
+                if (
+                    !InstanceTracks.TryGetValue(selectCoord, out HashSet<SelectCoordFilter> filters)
+                )
+                    return;
+
+                foreach (var filter in filters)
+                {
+                    filter.SetActive(active);
+                }
+            }
+
+            private void OnEnable()
+            {
+                SetActive(true);
+            }
+
+            private void OnDisable()
+            {
+                SetActive(false);
+            }
+
+            private void OnDestroy()
+            {
+                if (selectCoord == null)
+                    return;
+                if (!InstanceTracks.Remove(selectCoord, out HashSet<SelectCoordFilter> filters))
+                    return;
+
+                foreach (var filter in filters)
+                {
+                    core.RemoveFilterContext(filter.infoSort);
+                }
+            }
+
+            internal static SelectCoordStateListener Attach(
+                Component target,
+                SelectCoodinateCard selectCoord
+            )
+            {
+                RegisterIl2cppType<SelectCoordStateListener>();
+
+                var listener = target.gameObject.AddComponent<SelectCoordStateListener>();
+                listener.enabled = false;
+                listener.selectCoord = selectCoord;
+                listener.enabled = true;
+
+                return listener;
             }
         }
     }

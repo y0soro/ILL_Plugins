@@ -6,7 +6,6 @@ using BepInEx.Configuration;
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
 using UnityEngine;
-using Object = System.Object;
 
 namespace CharaFilterCore;
 
@@ -336,7 +335,9 @@ public abstract class CharaFilterManager
 
             GUILayout.EndHorizontal();
 
-            // GUILayout.Label(windowRect.ToString());
+#if DEBUG
+            GUILayout.Label(windowRect.ToString());
+#endif
         }
 
         private bool DrawGroupControl(
