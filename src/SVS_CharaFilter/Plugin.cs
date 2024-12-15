@@ -611,7 +611,7 @@ public class Plugin : BasePlugin
 
         internal void SetActive(bool active)
         {
-            core.SetFilterContextActive(infoSort, active);
+            core.SetFilterContextActive(infoSort, active && selectCord.isActiveAndEnabled);
         }
 
         protected override ItemInfo ConvertItemInfo(ManagerChaCoordinateInfo item)
