@@ -536,7 +536,7 @@ public class Plugin : BasePlugin
         [ThreadStatic]
         internal static bool Sorting;
 
-        private readonly SelectCoodinateCard selectCord;
+        private readonly SelectCoodinateCard selectCoord;
         private readonly SelectChaCoordinateInfo infoSort;
 
         private ManagerChaCoordinateInfo[] targetInfos = [];
@@ -550,17 +550,17 @@ public class Plugin : BasePlugin
 
         internal static bool TryNew(SelectChaCoordinateInfo instance, out SelectCoordFilter filter)
         {
-            SelectCoodinateCard selectCord = null;
+            SelectCoodinateCard selectCoord = null;
             foreach (var parent in InstanceTracks.Keys)
             {
                 if (parent.useInfos != instance && !parent.coordinateInfos.Contains(instance))
                     continue;
 
-                selectCord = parent;
+                selectCoord = parent;
                 break;
             }
 
-            if (selectCord == null)
+            if (selectCoord == null)
             {
                 if (lastInstance == null)
                 {
@@ -568,19 +568,19 @@ public class Plugin : BasePlugin
                     return false;
                 }
                 // assume the last is what we want
-                selectCord = lastInstance;
+                selectCoord = lastInstance;
             }
 
-            filter = new(selectCord, instance);
-            InstanceTracks[selectCord].Add(filter);
+            filter = new(selectCoord, instance);
+            InstanceTracks[selectCoord].Add(filter);
             core.AddFilterContext(instance, filter);
 
             return true;
         }
 
-        private SelectCoordFilter(SelectCoodinateCard selectCord, SelectChaCoordinateInfo infoSort)
+        private SelectCoordFilter(SelectCoodinateCard selectCoord, SelectChaCoordinateInfo infoSort)
         {
-            this.selectCord = selectCord;
+            this.selectCoord = selectCoord;
             this.infoSort = infoSort;
         }
 
@@ -604,14 +604,14 @@ public class Plugin : BasePlugin
 
             Sorting = true;
             // this redraws list, calling twice to preserve the original order
-            selectCord._sortOrder._button.Press();
-            selectCord._sortOrder._button.Press();
+            selectCoord._sortOrder._button.Press();
+            selectCoord._sortOrder._button.Press();
             Sorting = false;
         }
 
         internal void SetActive(bool active)
         {
-            core.SetFilterContextActive(infoSort, active && selectCord.isActiveAndEnabled);
+            core.SetFilterContextActive(infoSort, active && selectCoord.isActiveAndEnabled);
         }
 
         protected override ItemInfo ConvertItemInfo(ManagerChaCoordinateInfo item)
