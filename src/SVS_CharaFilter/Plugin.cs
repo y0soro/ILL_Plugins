@@ -269,6 +269,9 @@ public class Plugin : BasePlugin
 
     private static class Hooks
     {
+        // capture frame save card fix
+        private static CustomFileInfo lastCustomFile = null;
+
         private static readonly string[] recursiveDirs =
         [
             "UserData\\chara",
@@ -297,6 +300,26 @@ public class Plugin : BasePlugin
             return false;
         }
 
+        // capture frame save card fix
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(CaptureFrame), nameof(CaptureFrame.SaveCard))]
+        private static void SaveCard(bool saveNew, ref string fileName)
+        {
+            // check if this file is our selected card
+            if (
+                saveNew
+                || lastCustomFile == null
+                || lastCustomFile.IsDefaultData
+                || string.IsNullOrEmpty(fileName)
+                || lastCustomFile.FileName != fileName
+            )
+                return;
+
+            // set filename to the full path so the internal logic of SaveCard
+            // saves card to the right file location
+            fileName = lastCustomFile.FullPath;
+        }
+
         private static void HookAwakePost(MonoBehaviour instance)
         {
             Log.LogDebug($"FileListCtrl Awake Post {instance}");
@@ -314,6 +337,9 @@ public class Plugin : BasePlugin
                     (Il2CppSystem.Action<CustomFileInfo>)
                         delegate(CustomFileInfo x)
                         {
+                            // capture frame save card fix
+                            lastCustomFile = x;
+
                             filter.SetActiveItem(x);
                             core.SetFilterContextActive(instance, true);
                         }
