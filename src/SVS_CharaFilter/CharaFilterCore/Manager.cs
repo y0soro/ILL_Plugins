@@ -91,7 +91,10 @@ public abstract class CharaFilterManager
 
     public bool AddFilterContext(object id, FilterContextBase context)
     {
-        return filterMap.TryAdd(id, new FilterWrapper(context));
+        lock (lockObj)
+        {
+            return filterMap.TryAdd(id, new FilterWrapper(context));
+        }
     }
 
     public bool GetFilterContext(object id, out FilterContextBase context)
@@ -108,13 +111,16 @@ public abstract class CharaFilterManager
 
     public bool RemoveFilterContext(object id)
     {
-        if (filterMap.TryRemove(id, out FilterWrapper wrapper))
+        lock (lockObj)
         {
-            if (wrapper.active)
+            if (filterMap.TryRemove(id, out FilterWrapper wrapper))
             {
-                cacheActiveFilterIds.Remove(id);
+                if (wrapper.active)
+                {
+                    cacheActiveFilterIds.Remove(id);
+                }
+                return true;
             }
-            return true;
         }
         return false;
     }
