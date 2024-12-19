@@ -324,6 +324,11 @@ public class Plugin : BasePlugin
         {
             Log.LogDebug($"FileListCtrl Awake Post {instance}");
 
+            static void SetFilterActive(MonoBehaviour target)
+            {
+                core.SetFilterContextActive(target, target.isActiveAndEnabled);
+            }
+
             if (instance is CustomFileListCtrl ctrl)
             {
                 var filter = new CustomFilter();
@@ -341,7 +346,7 @@ public class Plugin : BasePlugin
                             lastCustomFile = x;
 
                             filter.SetActiveItem(x);
-                            core.SetFilterContextActive(instance, true);
+                            SetFilterActive(instance);
                         }
                 );
                 ctrl._onChange.Subscribe(observer);
@@ -359,7 +364,7 @@ public class Plugin : BasePlugin
                         delegate(FusionFileInfo x)
                         {
                             filter.SetActiveItem(x);
-                            core.SetFilterContextActive(instance, true);
+                            SetFilterActive(instance);
                         }
                 );
                 ctrl1._onChange.Subscribe(observer);
@@ -378,7 +383,7 @@ public class Plugin : BasePlugin
                         delegate(UPFileInfo x)
                         {
                             filter.SetActiveItem(x);
-                            core.SetFilterContextActive(instance, true);
+                            SetFilterActive(instance);
                         }
                 );
                 ctrl2._onChange.Subscribe(observer);
@@ -397,7 +402,7 @@ public class Plugin : BasePlugin
                         delegate(EntryFileInfo x)
                         {
                             filter.SetActiveItem(x);
-                            core.SetFilterContextActive(instance, true);
+                            SetFilterActive(instance);
                         }
                 );
                 ctrl3._onChange.Subscribe(observer);
