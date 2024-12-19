@@ -5,7 +5,8 @@
   },
   "tagName": {
     "HC": "HoneyCome",
-    "SV": "SVS"
+    "SV": "SVS",
+    "Untagged": "Untagged"
   },
   "ui": {
     "AND": "AND",
