@@ -22,10 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <!-- DC that updated with support of SVS -->
-      <HintPath>Libraries/Assembly-CSharp.dll</HintPath>
-    </Reference>
+    <!-- DC that updated with support of SVS -->
+    <Reference Include="Assembly-CSharp" HintPath="Libraries/Assembly-CSharp.dll"
+      Private="false" />
   </ItemGroup>
 
   <ItemGroup>

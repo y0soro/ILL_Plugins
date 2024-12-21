@@ -15,8 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="UnityEngine.UnityWebRequestModule">
-      <HintPath>Libraries/UnityEngine.UnityWebRequestModule.dll</HintPath>
-    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule"
+      HintPath="Libraries/UnityEngine.UnityWebRequestModule.dll" Private="false" />
   </ItemGroup>
 </Project>

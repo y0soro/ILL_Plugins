@@ -21,10 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <!-- For namespace Network.Uploader.Chara -->
-      <HintPath>Libraries/Assembly-CSharp.dll</HintPath>
-    </Reference>
+    <!-- For namespace Network.Uploader.Chara -->
+    <Reference Include="Assembly-CSharp" HintPath="Libraries/Assembly-CSharp.dll"
+      Private="false" />
   </ItemGroup>
 
   <ItemGroup>
