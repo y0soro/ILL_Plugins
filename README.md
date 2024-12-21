@@ -58,3 +58,13 @@ An example of tag name with all these modifiers would be:
 
 -   in Folder name: `{g=Rating}{go=1}{m=1}{o=1}Great`
 -   in card filename : `[{g=Rating}{go=1}{m=0}{o=2}Medium] MyChara.png`
+
+## WebRequestMask
+
+Mask unwanted Web requests initiated with `UnityWebRequest`.
+
+This is similar to WebRequestBlocker but without hardcoded internal HTTP server port.
+
+For instance, this would allows you to launch both DigitalCraft and SVS without one of them yelling "Connection failed" due to port allocation collision that causes one of the internal HTTP server failed to start (on Linux).
+
+This also allows you to configure a HTTP proxy bypassing TLS certification checks, so you can intercept `UnityWebRequest` traffic with mitmproxy easily.

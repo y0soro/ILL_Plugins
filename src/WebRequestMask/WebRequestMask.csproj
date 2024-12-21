@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Product>WebRequestMask</Product>
+    <Version>0.0.1</Version>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>WebRequestMask</AssemblyName>
+    <RootNamespace>WebRequestMask</RootNamespace>
+    <Description>Mask unwanted Web requests initiated with UnityWebRequest</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.725" IncludeAssets="compile" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
+    <PackageReference Include="IllusionLibs.SamabakeScramble.UnityEngine" Version="2021.3.33.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>Libraries/UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
