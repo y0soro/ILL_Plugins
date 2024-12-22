@@ -9,9 +9,10 @@ namespace WebRequestMask.Core;
 public class CommonPlugin
 {
     private static ManualLogSource Log;
+
     public readonly UrlProxy urlProxy;
 
-    public readonly ConfigEntry<string> httpProxy;
+    private readonly ConfigEntry<string> httpProxy;
     private readonly ConfigEntry<UrlPrefixes> maskUrls;
     private readonly ConfigEntry<UrlPrefixes> allowUrls;
     private readonly ConfigEntry<bool> enableMask;
