@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using BepInEx.Logging;
@@ -74,7 +75,7 @@ public class UrlProxy
     private bool StartListener()
     {
         // loop in case of port allocation racing
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 10; i++)
         {
             try
             {
@@ -90,15 +91,18 @@ public class UrlProxy
                     tryPort = FreeTcpPort();
                 }
 
-                currPrefix = $"http://localhost:{tryPort}/";
+                var prefix = $"http://localhost:{tryPort}/";
                 listener.Prefixes.Clear();
-                listener.Prefixes.Add(currPrefix);
+                listener.Prefixes.Add(prefix);
                 listener.Start();
 
+                currPrefix = prefix;
                 Port = tryPort;
                 return true;
             }
             catch (Exception) { }
+
+            Thread.Sleep(100);
         }
 
         return false;
@@ -276,7 +280,7 @@ public class UrlProxy
 
     public string ProxyUrl(string original)
     {
-        if (currPrefix == null)
+        if (!started || currPrefix == null)
             return original;
 
         var encodedUrl = HttpUtility.UrlEncode(original);
