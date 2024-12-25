@@ -30,10 +30,14 @@ public class Plugin : BasePlugin
         [HarmonyPatch(typeof(UnityWebRequest), nameof(UnityWebRequest.SendWebRequest))]
         private static void SendWebRequest(UnityWebRequest __instance)
         {
+
             if (core.urlProxy.HasHttpProxy() || core.MaskUrl(__instance.url))
             {
-                Log.LogDebug($"Redirect {__instance.url}");
+                Log.LogInfo($"Redirect {__instance.url}");
                 __instance.url = core.urlProxy.ProxyUrl(__instance.url);
+            } else {
+
+                Log.LogInfo($"Allow {__instance.url}");
             }
         }
     }

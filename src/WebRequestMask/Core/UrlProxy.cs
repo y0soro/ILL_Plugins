@@ -146,7 +146,7 @@ public class UrlProxy
             }
             else
             {
-                await ResponseOk(ctx);
+                ResponseOk(ctx);
             }
         }
         catch (Exception e)
@@ -155,14 +155,12 @@ public class UrlProxy
         }
     }
 
-    private static async Task ResponseOk(HttpListenerContext ctx)
+    private static void ResponseOk(HttpListenerContext ctx)
     {
         using var res = ctx.Response;
         res.StatusCode = (int)HttpStatusCode.OK;
         res.StatusDescription = "OK";
         res.SendChunked = false;
-
-        await res.OutputStream.FlushAsync();
     }
 
     private static async Task HandleRequest_(HttpClient proxyClient, HttpListenerContext ctx)
@@ -178,6 +176,7 @@ public class UrlProxy
         {
             res.StatusCode = (int)HttpStatusCode.Forbidden;
             res.StatusDescription = "Forbidden";
+            res.SendChunked = false;
             return;
         }
 
