@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Product>WebRequestMask</Product>
-    <Version>0.0.1</Version>
+    <Version>0.0.3</Version>
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>WebRequestMask</AssemblyName>
     <RootNamespace>WebRequestMask</RootNamespace>
