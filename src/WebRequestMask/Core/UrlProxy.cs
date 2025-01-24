@@ -91,7 +91,7 @@ public class UrlProxy
                     tryPort = FreeTcpPort();
                 }
 
-                var prefix = $"http://localhost:{tryPort}/";
+                var prefix = $"http://{IPAddress.Loopback}:{tryPort}/";
                 listener.Prefixes.Clear();
                 listener.Prefixes.Add(prefix);
                 listener.Start();
@@ -265,6 +265,8 @@ public class UrlProxy
         {
             if (!started)
                 return;
+
+            Log.LogDebug($"Stopping proxy server");
 
             started = false;
 
