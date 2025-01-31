@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Product>IL2CPP_ICall2Interop.Patcher</Product>
+    <Version>0.0.1</Version>
+    <TargetFramework>net6.0</TargetFramework>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AssemblyName>IL2CPP_ICall2Interop.Patcher</AssemblyName>
+    <RootNamespace>IL2CPP_ICall2Interop.Patcher</RootNamespace>
+    <Description>Proxy the IL2CPP internal call to corresponding Il2CppInterop generated interop method, so patching on Unity extern methods is working again.</Description>
+    <Copyright>y0soro and Il2CppInterop contributors</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.725" IncludeAssets="compile" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
+    <PackageReference Include="BepInEx.Preloader.Core" Version="6.0.0-be.725" />
+    <PackageReference Include="IllusionLibs.SamabakeScramble.Il2Cppmscorlib" Version="2024.8.30.1" />
+  </ItemGroup>
+</Project>

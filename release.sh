@@ -29,7 +29,12 @@ for i in src/*; do
     tmp=$(mktemp -d)
     pushd $tmp
 
-    install -D "${DIR}/artifacts/bin/${name}/release/"*.dll -t ./BepInEx/plugins
+    dest_dir=./BepInEx/plugins
+    if [[ ${name} == *"Patcher"* ]]; then
+        dest_dir=./BepInEx/patchers
+    fi
+
+    install -D "${DIR}/artifacts/bin/${name}/release/"*.dll -t $dest_dir
 
     zipFile="$DIR/artifacts/${name}-${version}.zip"
 
