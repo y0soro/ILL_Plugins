@@ -1,4 +1,4 @@
-// Copyright: Il2CppInterop contributors
+// Copyright: Il2CppInterop contributors and y0soro
 // SPDX-License-Identifier: LGPL-3.0-only
 // modified from Il2CppInterop.HarmonySupport/Il2CppDetourMethodPatcher.cs
 
@@ -79,106 +79,6 @@ internal static partial class InteropUtils
 
         // Looks like on x32 gcc and clang return buffer is always used
         return true;
-    }
-
-    public static DynamicMethod GenerateNativeToManagedTrampolineBak(
-        nint iCallProxyGcHandle,
-        MethodInfo managedMethod
-    )
-    {
-        // managedParams are the interop types used on the managed side
-        // unmanagedParams are IntPtr references that are used by IL2CPP compiled assembly
-        var paramStartIndex = 0;
-
-        var managedReturnType = AccessTools.GetReturnedType(managedMethod);
-        var unmanagedReturnType = managedReturnType.NativeType();
-
-        var returnSize = IntPtr.Size;
-
-        var isReturnValueType = managedReturnType.IsSubclassOf(typeof(Il2CppSystem.ValueType));
-
-        if (isReturnValueType)
-        {
-            nint nativeClassPtr = Il2CppClassPointerStore.GetNativeClassPointer(managedReturnType);
-            if (nativeClassPtr == 0)
-            {
-                // assumes native register size, mostly for enum
-                throw new Exception("unreachable");
-            }
-            else
-            {
-                uint align = 0;
-                returnSize = IL2CPP.il2cpp_class_value_size(nativeClassPtr, ref align);
-            }
-        }
-
-        var hasReturnBuffer = isReturnValueType && IsReturnBufferNeeded(returnSize);
-
-        if (hasReturnBuffer)
-        // C compilers seem to return large structs by allocating a return buffer on caller's side and passing it as the first parameter
-        // TODO: Handle ARM
-        // TODO: Check if this applies to values other than structs
-        {
-            Patcher.Log.LogInfo($"has return buffer {managedMethod.Name}");
-            unmanagedReturnType = typeof(IntPtr);
-            paramStartIndex++;
-        }
-
-        if (!managedMethod.IsStatic)
-        {
-            paramStartIndex++;
-        }
-
-        var managedParams = managedMethod.GetParameters().Select(x => x.ParameterType).ToArray();
-        var unmanagedParams = new Type[managedParams.Length + paramStartIndex];
-
-        if (hasReturnBuffer)
-        // With GCC the return buffer seems to be the first param, same is likely with other compilers too
-        {
-            unmanagedParams[0] = typeof(IntPtr);
-        }
-
-        if (!managedMethod.IsStatic)
-        {
-            unmanagedParams[paramStartIndex - 1] = typeof(IntPtr);
-        }
-
-        Array.Copy(
-            managedParams.Select(TrampolineHelpers.NativeType).ToArray(),
-            0,
-            unmanagedParams,
-            paramStartIndex,
-            managedParams.Length
-        );
-
-        var dynamicMethod = new DynamicMethod(
-            "(internal call -> managed) " + managedMethod.Name,
-            unmanagedReturnType,
-            unmanagedParams
-        );
-
-        Patcher.Log.LogDebug(
-            $"{managedMethod.Name} ret:{unmanagedReturnType.Name} params len:{unmanagedParams.Length}"
-        );
-
-        var il = dynamicMethod.GetILGenerator();
-
-        for (int i = 0; i < unmanagedParams.Length; i++)
-        {
-            il.Emit(OpCodes.Ldarg, i);
-        }
-
-        il.Emit(OpCodes.Ldc_I8, iCallProxyGcHandle);
-        il.Emit(OpCodes.Conv_I);
-        il.Emit(OpCodes.Call, ICallUsetargetManagedMethodInfoICallFromHandleMethodInfo);
-
-        il.Emit(OpCodes.Conv_U);
-        il.Emit(OpCodes.Tailcall);
-        il.EmitCalli(OpCodes.Calli, CallingConvention.Cdecl, unmanagedReturnType, unmanagedParams);
-
-        il.Emit(OpCodes.Ret);
-
-        return dynamicMethod;
     }
 
     public static DynamicMethod GenerateNativeToManagedTrampoline(
@@ -267,10 +167,6 @@ internal static partial class InteropUtils
             "(internal call -> managed) " + managedMethod.Name,
             unmanagedReturnType,
             unmanagedParams
-        );
-
-        Patcher.Log.LogDebug(
-            $"{managedMethod.Name} ret:{unmanagedReturnType.Name} params len:{unmanagedParams.Length}"
         );
 
         var il = dynamicMethod.GetILGenerator();

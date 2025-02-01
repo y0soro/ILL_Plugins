@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -100,10 +101,8 @@ internal static class Utils
 
             // reserved for native patching
             var gap = funcSize - jmpi.Length - datJmpTo.Length;
-            if (gap > byte.MaxValue || gap < 0)
-            {
-                throw new Exception("invalid rel8");
-            }
+
+            Debug.Assert(gap <= byte.MaxValue && gap >= 0);
 
             jmpi[2] = (byte)(gap & 0xff);
             jmpi[3] = (byte)(gap >> 8 & 0xff);

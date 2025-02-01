@@ -46,9 +46,8 @@ internal class HarmonyPatcherWrapper : MethodPatcher
             {
                 patches =
                 [
-                    .. patches.Prepend(
-                        new(new(patchMethod, priority: Priority.First), 0, MyPluginInfo.PLUGIN_GUID)
-                    ),
+                    new(new(patchMethod, priority: Priority.First), 0, MyPluginInfo.PLUGIN_GUID),
+                    .. patches,
                 ];
             }
         }
@@ -128,11 +127,6 @@ internal class HarmonyPatcherWrapper : MethodPatcher
 
             return iCallProxyHandle;
         }
-    }
-
-    public static bool TryGetICallProxyHandle(MethodBase original, out GCHandle handle)
-    {
-        return iCallProxyStore.TryGetValue(original, out handle);
     }
 
     public static void WrapPatcher(object sender, PatchManager.PatcherResolverEventArgs args)

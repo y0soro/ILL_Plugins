@@ -52,7 +52,7 @@ internal class ICallProxy
         return HookDepth >= 0;
     }
 
-    private unsafe nint UseOriginalICall()
+    public nint UseOriginalICall()
     {
         // if (callCount == 0)
         // {

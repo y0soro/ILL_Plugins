@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using BepInEx.Logging;
 using BepInEx.Preloader.Core.Patching;
 using BepInEx.Unity.IL2CPP.Hook;
@@ -18,11 +17,6 @@ namespace IL2CPP_ICall2Interop.Patcher;
 public class Patcher : BasePatcher
 {
     internal static new ManualLogSource Log;
-    internal static IntPtr Il2CppHandle = NativeLibrary.Load(
-        "GameAssembly",
-        typeof(Patcher).Assembly,
-        null
-    );
 
     internal static ConcurrentDictionary<
         MethodInfo,
@@ -40,6 +34,8 @@ public class Patcher : BasePatcher
     {
         Log = base.Log;
 
+        var Il2CppHandle = NativeLibrary.Load("GameAssembly", typeof(Patcher).Assembly, null);
+
         NativeLibrary.TryGetExport(
             Il2CppHandle,
             "il2cpp_resolve_icall",
@@ -48,7 +44,7 @@ public class Patcher : BasePatcher
         var internalCallsResolve = XrefScannerLowLevel.JumpTargets(il2cpp_resolve_icall).Single();
 
         Log.LogDebug(
-            $"Patching il2cpp_resolve_icall:0x{il2cpp_resolve_icall:x} internalCallsResolve:0x{internalCallsResolve:x}"
+            $"Patching il2cpp_resolve_icall 0x{il2cpp_resolve_icall:x}, il2cpp::vm::InternalCalls::Resolve 0x{internalCallsResolve:x}"
         );
 
         INativeDetour.CreateAndApply(internalCallsResolve, hookICallResolve, out origICallResolve);
@@ -101,19 +97,19 @@ public class Patcher : BasePatcher
                 methodInfo
             );
 
-            var unmanagedDelegateType = DelegateTypeFactory.instance.CreateDelegateType(
-                nativeToManagedMethod,
-                CallingConvention.Cdecl
-            );
-
-            if (unmanagedDelegateType == null)
+            if (nativeToManagedMethod == null)
             {
-                Log.LogDebug($"failed to create delegate type for proxy method");
+                Log.LogDebug($"failed to create proxy method");
                 iCallProxy.ResolvedICall = originalICall;
                 iCallProxy.OriginalICall = 0;
 
                 return originalICall;
             }
+
+            var unmanagedDelegateType = DelegateTypeFactory.instance.CreateDelegateType(
+                nativeToManagedMethod,
+                CallingConvention.Cdecl
+            );
 
             var unmanagedDelegate = nativeToManagedMethod.CreateDelegate(unmanagedDelegateType);
 

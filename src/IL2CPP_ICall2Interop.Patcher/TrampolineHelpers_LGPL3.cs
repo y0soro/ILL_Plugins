@@ -15,7 +15,7 @@ internal static class TrampolineHelpers
 {
     private static AssemblyBuilder _fixedStructAssembly;
     private static ModuleBuilder _fixedStructModuleBuilder;
-    private static readonly Dictionary<int, Type> _fixedStructCache = new();
+    private static readonly Dictionary<int, Type> _fixedStructCache = [];
 
     private static Type GetFixedSizeStructType(int size)
     {
