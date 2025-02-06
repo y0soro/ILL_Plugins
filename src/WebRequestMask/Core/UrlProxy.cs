@@ -172,7 +172,7 @@ public class UrlProxy
         var token = query.Get("token");
         var originalUrl = query.Get("url");
 
-        if (token != validToken)
+        if (string.IsNullOrEmpty(originalUrl) || token != validToken)
         {
             res.StatusCode = (int)HttpStatusCode.Forbidden;
             res.StatusDescription = "Forbidden";
