@@ -27,6 +27,12 @@ for i in src/*; do
     version=$(git_version $name)
 
     tmp=$(mktemp -d)
+
+    dist="src/${name}/dist"
+    if [[ -d $dist ]]; then
+        cp -r "${dist}/." $tmp
+    fi
+
     pushd $tmp
 
     dest_dir=./BepInEx/plugins
