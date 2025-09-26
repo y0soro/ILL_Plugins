@@ -236,6 +236,8 @@ public class UrlProxy
                 Log.LogWarning(e);
             }
         }
+
+        Log.LogInfo("Proxy server task stopped");
     }
 
     public void Start()
@@ -255,7 +257,7 @@ public class UrlProxy
 
             started = true;
 
-            task = Task.Run(Accept);
+            task = Task.Factory.StartNew(Accept, TaskCreationOptions.LongRunning);
         }
     }
 
