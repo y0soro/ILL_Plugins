@@ -46,5 +46,6 @@ for i in src/*; do
 
     rm -f $zipFile
     zip -r $zipFile .
+    strip-nondeterminism -T $(TZ=UTC date -d "today 12:00:00" +%s) $zipFile
     popd
 done
