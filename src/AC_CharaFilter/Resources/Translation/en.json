@@ -1,0 +1,45 @@
+{
+  "groupName": {
+    "Default Group": "Default Group",
+    "Personality": "Personality",
+    "Source": "Source"
+  },
+  "tagName": {
+    "My Work": "My Work",
+    "Others Work": "Others Work",
+    "Presets": "Presets",
+    "Untagged": "Untagged",
+    "不明": "Unknown",
+    "明るい": "Cheerful",
+    "おっとり": "Gentle",
+    "気さく": "Friendly",
+    "楽天的": "Optimistic",
+    "ギャル": "Gyaru",
+    "クール": "Cool",
+    "不良少女": "Delinquent",
+    "内気": "Shy",
+    "不思議っ娘": "Mysterious",
+    "オタク": "Otaku",
+    "ボクっ娘": "Bokukko",
+    "大和撫子": "Proper Lady",
+    "艶やか": "Glamorous",
+    "古風": "Old-fashioned",
+    "ボーイッシュ": "Boyish",
+    "Sっ気": "Sadistic",
+    "ツンデレ": "Tsundere",
+    "お嬢様": "Ojousama",
+    "生意気": "Cheeky",
+    "ものぐさ": "Lazy"
+  },
+  "ui": {
+    "AND": "AND",
+    "All": "All",
+    "Chara Filter": "Chara Filter",
+    "Exclude-select": "Exclude-select",
+    "List #{0}": "List #{0}",
+    "Multi-select": "Multi-select",
+    "OR": "OR",
+    "Populate": "Populate",
+    "Reset": "Reset"
+  }
+}

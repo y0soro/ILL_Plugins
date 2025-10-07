@@ -597,7 +597,7 @@ public abstract class FilterContext<T> : FilterContextBase
     {
         if (!infoCache.TryGetValue(item, out ItemInfo info))
         {
-            Log.LogDebug("FIXME: no cached item info");
+            // Log.LogDebug("FIXME: no cached item info");
             info = ConvertAddItemInfo(item);
         }
         return info;
@@ -616,6 +616,7 @@ public abstract class FilterContext<T> : FilterContextBase
         lock (lockObj)
         {
             infoCache.Clear();
+            activeItemInfo = null;
             CollectNew(list.Select(ConvertAddItemInfo).Where((info) => info != null));
         }
     }
