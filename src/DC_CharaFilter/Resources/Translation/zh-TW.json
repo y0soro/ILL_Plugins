@@ -1,0 +1,22 @@
+{
+  "groupName": {
+    "Default Group": "預設群組",
+    "Type": "類型"
+  },
+  "tagName": {
+    "HC": "HoneyCome",
+    "SV": "SVS",
+    "Untagged": "未標記"
+  },
+  "ui": {
+    "AND": "和",
+    "All": "全部",
+    "Chara Filter": "Chara Filter",
+    "Exclude-select": "排除選擇",
+    "List #{0}": "列表 #{0}",
+    "Multi-select": "多選",
+    "OR": "或",
+    "Populate": "填充",
+    "Reset": "重設"
+  }
+}
