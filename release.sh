@@ -7,7 +7,11 @@ cd $DIR
 
 # set -p:PublishTrimmed=false to avoid triggering virus false-positive,
 # see https://github.com/dotnet/runtime/issues/33745
-dotnet build --configuration Release -p:ContinuousIntegrationBuild=true -p:PublishTrimmed=false
+dotnet build --configuration Release --no-incremental \
+    -p:ContinuousIntegrationBuild=true \
+    -p:PublishTrimmed=false \
+    -p:SignAssembly=true \
+    -p:AssemblyOriginatorKeyFile="$ILL_SN_KEY"
 
 git_version() {
     local prefix=$1
