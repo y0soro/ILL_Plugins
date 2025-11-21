@@ -60,6 +60,10 @@ public class Plugin : BasePlugin
             {
                 tType = L10n.Tag("SV");
             }
+            else if (item.Kind == 3)
+            {
+                tType = L10n.Tag("AC");
+            }
             else
             {
                 tType = item.Kind.ToString();
