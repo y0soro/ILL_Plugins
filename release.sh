@@ -26,9 +26,20 @@ for i in src/*; do
     name="${i#src/}"
     name="${name%/}"
 
-    # version=v$(sed -n 's/.*<Version>\(.*\)<.*/\1/p' "src/${name}/"*.csproj | tr -d '\n')
+    if [[ $name] == "Shared_"* ]]; then
+        continue
+    fi
 
-    version=$(git_version $name)
+    namespace=$(sed -n 's/.*<RootNamespace>\(.*\)<.*/\1/p' "src/${name}/"*.csproj | tr -d '\n')
+
+    version_prefix=$name
+    dist_dir=
+    if [[ $namespace] == "ILL_"* ]]; then
+        version_prefix=$namespace
+        dist_dir="$namespace/"
+    fi
+
+    version=$(git_version $version_prefix)
 
     tmp=$(mktemp -d)
 
@@ -46,7 +57,10 @@ for i in src/*; do
 
     install -D "${DIR}/artifacts/bin/${name}/release/"*.dll -t $dest_dir
 
-    zipFile="$DIR/artifacts/${name}-${version}.zip"
+    outdir="$DIR/artifacts/${dist_dir}"
+    mkdir -p $outdir
+
+    zipFile="${outdir}${name}-${version}.zip"
 
     rm -f $zipFile
     zip -r $zipFile .

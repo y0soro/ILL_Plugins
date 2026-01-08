@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Product>HC_SliderUnlocker</Product>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>HC_SliderUnlocker</AssemblyName>
+    <RootNamespace>ILL_SliderUnlocker</RootNamespace>
+    <Description>Slider unlocker for HoneyCome</Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.725" IncludeAssets="compile" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
+    <PackageReference Include="IllusionLibs.HoneyCome.Assembly-CSharp" Version="2023.99.12.15" />
+    <PackageReference Include="IllusionLibs.HoneyCome.Il2Cppmscorlib" Version="2023.99.12.15" />
+    <PackageReference Include="IllusionLibs.HoneyCome.UnityEngine" Version="2021.3.14.3" />
+    <PackageReference Include="IllusionLibs.HoneyCome.UnityEngine.UI" Version="2021.3.14.3" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DefineConstants>HC</DefineConstants>
+  </PropertyGroup>
+
+  <Import Project="..\Shared_SliderUnlocker\Shared.props" />
+</Project>
