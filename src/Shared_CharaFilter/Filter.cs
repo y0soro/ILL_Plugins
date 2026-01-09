@@ -5,7 +5,7 @@ using System.Linq;
 using BepInEx.Logging;
 using UnityEngine;
 
-namespace CharaFilterCore;
+namespace ILL_CharaFilter;
 
 public abstract class FilterContextBase
 {

@@ -5,14 +5,13 @@ using System.Linq;
 using BepInEx;
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
-using CharaFilterCore;
 using DigitalCraft;
 using HarmonyLib;
 using Il2CppInterop.Runtime.Injection;
 using UniRx;
 using UnityEngine;
 
-namespace DC_CharaFilter;
+namespace ILL_CharaFilter;
 
 [BepInProcess("DigitalCraft")]
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]

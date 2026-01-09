@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using AC.CharaFile;
-using AC.Scene.Home;
 using AC.Scene.Home.UI;
 using BepInEx;
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
-using Character;
 using CharacterCreation;
-using CharaFilterCore;
 using H.ClothesPanel;
 using HarmonyLib;
 using Il2CppInterop.Runtime.Injection;
@@ -19,7 +16,7 @@ using Network.Chara.UI;
 using R3;
 using UnityEngine;
 
-namespace AC_CharaFilter;
+namespace ILL_CharaFilter;
 
 [BepInProcess("Aicomi")]
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]

@@ -1,14 +1,11 @@
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
-using CharaFilterCore;
 using H.ClothesPanel;
 using HarmonyLib;
 using R3;
 using UnityEngine;
 
-namespace AC_CharaFilter;
+namespace ILL_CharaFilter;
 
 public partial class Plugin
 {

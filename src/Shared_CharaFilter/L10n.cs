@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using BepInEx;
 
-namespace CharaFilterCore;
+namespace ILL_CharaFilter;
 
 internal class Translation
 {

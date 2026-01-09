@@ -1,10 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Product>DC_CharaFilter</Product>
-    <Version>0.0.6</Version>
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>DC_CharaFilter</AssemblyName>
-    <RootNamespace>DC_CharaFilter</RootNamespace>
+    <RootNamespace>ILL_CharaFilter</RootNamespace>
     <Description>Character/coordinate card filter for DigitalCraft 2.0.0</Description>
   </PropertyGroup>
 
@@ -27,12 +26,13 @@
       Private="false" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Include="../SVS_CharaFilter/CharaFilterCore/**/*.cs" />
-  </ItemGroup>
+  <PropertyGroup>
+    <DefineConstants>DC</DefineConstants>
+  </PropertyGroup>
+
+  <Import Project="../Shared_CharaFilter/Shared.props" />
 
   <ItemGroup>
     <EmbeddedResource Include="Resources/Translation/*.json" />
-    <EmbeddedResource Include="../SVS_CharaFilter/CharaFilterCore/Resources/*.png" />
   </ItemGroup>
 </Project>

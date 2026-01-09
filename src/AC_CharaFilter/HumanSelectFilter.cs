@@ -2,12 +2,11 @@ using System;
 using System.Linq;
 using AC.CharaFile;
 using AC.Scene.Home.UI;
-using CharaFilterCore;
 using HarmonyLib;
 using R3;
 using UnityEngine;
 
-namespace AC_CharaFilter;
+namespace ILL_CharaFilter;
 
 public partial class Plugin
 {

@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace CharaFilterCore;
+namespace ILL_CharaFilter;
 
 internal static class Utils
 {

@@ -7,7 +7,6 @@ using BepInEx;
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
 using CharacterCreation;
-using CharaFilterCore;
 using HarmonyLib;
 using Il2CppInterop.Runtime.Injection;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
@@ -21,7 +20,7 @@ using SelectChaCoordinateInfo = SV.H.UI.ClothesSettingMenu.SelectCoodinateCard.C
 using Network.Uploader.Chara;
 #endif
 
-namespace SVS_CharaFilter;
+namespace ILL_CharaFilter;
 
 [BepInProcess("SamabakeScramble")]
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]

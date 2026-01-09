@@ -7,7 +7,7 @@ using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
 using UnityEngine;
 
-namespace CharaFilterCore;
+namespace ILL_CharaFilter;
 
 public abstract class CharaFilterManager
 {

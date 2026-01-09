@@ -1,10 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Product>SVS_CharaFilter</Product>
-    <Version>0.0.6</Version>
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>SVS_CharaFilter</AssemblyName>
-    <RootNamespace>SVS_CharaFilter</RootNamespace>
+    <RootNamespace>ILL_CharaFilter</RootNamespace>
     <Description>Character/coordinate card filter for SVS</Description>
   </PropertyGroup>
 
@@ -26,12 +25,14 @@
       Private="false" />
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="CharaFilterCore/Resources/*.png" />
-    <EmbeddedResource Include="CharaFilterCore/Resources/Translation/*.json" />
-  </ItemGroup>
-
   <PropertyGroup>
     <DefineConstants>UPLOADER</DefineConstants>
+    <DefineConstants>AC</DefineConstants>
   </PropertyGroup>
+
+  <Import Project="../Shared_CharaFilter/Shared.props" />
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/Translation/*.json" />
+  </ItemGroup>
 </Project>

@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <Version>0.0.7</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)**/*.cs"  LinkBase="Shared_CharaFilter" Visible="True" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources/*.png" />
+  </ItemGroup>
+</Project>
