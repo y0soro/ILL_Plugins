@@ -32,14 +32,16 @@ for i in src/*; do
 
     namespace=$(sed -n 's/.*<RootNamespace>\(.*\)<.*/\1/p' "src/${name}/"*.csproj | tr -d '\n')
 
-    version_prefix=$name
-    dist_dir=
+    shared_name=$name
+    shared_src=$name
+    shared_dir=
     if [[ $namespace] == "ILL_"* ]]; then
-        version_prefix=$namespace
-        dist_dir="$namespace/"
+        shared_name=$namespace
+        shared_src="Shared_${namespace#ILL_}"
+        shared_dir="$namespace/"
     fi
 
-    version=$(git_version $version_prefix)
+    version=$(git_version $shared_name)
 
     tmp=$(mktemp -d)
 
@@ -50,14 +52,22 @@ for i in src/*; do
 
     pushd $tmp
 
-    dest_dir=./BepInEx/plugins
+    plugin_dir=./BepInEx/plugins
     if [[ ${name} == *"Patcher"* ]]; then
-        dest_dir=./BepInEx/patchers
+        plugin_dir=./BepInEx/patchers
+    fi
+    plugin_dir="${plugin_dir}/${shared_name}"
+
+    install -D "${DIR}/artifacts/bin/${name}/release/"*.dll -t $plugin_dir
+    install -D "${DIR}/LICENSE" -t $plugin_dir
+
+    # TODO: resolve and replace relative links in markdown
+    readme="${DIR}/src/${shared_src}/README.md"
+    if [[ -e $readme ]]; then
+        install -D $readme -t $plugin_dir
     fi
 
-    install -D "${DIR}/artifacts/bin/${name}/release/"*.dll -t $dest_dir
-
-    outdir="$DIR/artifacts/${dist_dir}"
+    outdir="$DIR/artifacts/${shared_dir}"
     mkdir -p $outdir
 
     zipFile="${outdir}${name}-${version}.zip"
