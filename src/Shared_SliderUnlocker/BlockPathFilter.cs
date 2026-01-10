@@ -125,6 +125,11 @@ internal class BlockPathFilter(BlockPathFilter.Rule[] rules)
             },
             new()
             {
+                Path = [new() { TypeName = "Character.HumanFace" }],
+                Action = RuleAction.Exclude,
+            },
+            new()
+            {
                 Path =
                 [
                     new()
@@ -134,7 +139,11 @@ internal class BlockPathFilter(BlockPathFilter.Rule[] rules)
                     },
                 ],
             },
-            new() { Path = [new() { TypeName = "SV.H.HScene/AnimeSpeeder" }], Action = RuleAction.Exclude },
+            new()
+            {
+                Path = [new() { TypeName = "SV.H.HScene/AnimeSpeeder" }],
+                Action = RuleAction.Exclude,
+            },
             new()
             {
                 Path =
