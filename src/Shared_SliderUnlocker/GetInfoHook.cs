@@ -31,7 +31,7 @@ internal static class GetInfoHook
         detour.Apply();
     }
 
-    // Harmony generates wrong IL codes for converting ref of blittable value type(i.e. ref Vector3),
+    // Harmony generates wrong IL codes for converting blittable value type pointer(i.e. ref Vector3),
     // so manually detour the function instead
     private static unsafe byte GetInfoDetour(
         nint pThis,

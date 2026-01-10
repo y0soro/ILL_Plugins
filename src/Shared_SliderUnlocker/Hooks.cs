@@ -17,7 +17,7 @@ public partial class Plugin
     internal static class Hooks
     {
 #if !DC
-        // // optional, GetInfoHook already removes ratio clamping in underlying native code
+        // // optional, clamp patcher already removes ratio clamping in underlying native code
         // [HarmonyPrefix]
         // [HarmonyPatch(typeof(HumanCustom), nameof(HumanCustom.ConvertTextFromRate01))]
         // private static bool ConvertTextFromRate01(ref string __result, float value)
@@ -179,7 +179,7 @@ public partial class Plugin
         }
 
         // mask modding checks
-        // optional for clamping, GetInfoHook already removes ratio clamping in underlying native code
+        // optional for clamping, clamp patcher already removes ratio clamping in underlying native code
         [HarmonyPrefix]
         [HarmonyPatch(typeof(HumanDataCheck), nameof(HumanDataCheck.IsHair))]
         [HarmonyPatch(typeof(HumanDataCheck), nameof(HumanDataCheck.IsClothes))]

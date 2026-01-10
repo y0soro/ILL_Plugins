@@ -163,7 +163,7 @@ public partial class Plugin : BasePlugin
         );
 
         scanWatch.Stop();
-        Log.LogDebug($"Native scan and patch time {scanWatch.ElapsedMilliseconds} ms");
+        Log.LogInfo($"Native scan and patch time {scanWatch.ElapsedMilliseconds} ms");
 
         Harmony.CreateAndPatchAll(typeof(Hooks), MyPluginInfo.PLUGIN_GUID);
 
@@ -271,7 +271,7 @@ public partial class Plugin : BasePlugin
 
         WritePatches(imageBase, imageSize, cacheBlocks.SelectMany(i => i.Matched ? i.Patches : []));
 
-        Log.LogDebug($"included patch set count {patchSetCnt}/{patchBlocks.Count}");
+        Log.LogInfo($"Included patch set count {patchSetCnt}/{patchBlocks.Count}");
 
         if (scanner.GetInfoRva != 0)
         {
@@ -326,7 +326,7 @@ public partial class Plugin : BasePlugin
     }
 
     [Flags]
-    public enum MemoryProtection
+    private enum MemoryProtection
     {
         Execute = 0x10,
         ExecuteRead = 0x20,
@@ -343,7 +343,7 @@ public partial class Plugin : BasePlugin
 
     [DllImport("kernel32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
-    public static extern bool VirtualProtect(
+    private static extern bool VirtualProtect(
         IntPtr lpAddress,
         UIntPtr dwSize,
         uint flNewProtect,

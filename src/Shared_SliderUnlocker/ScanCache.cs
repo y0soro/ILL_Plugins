@@ -272,7 +272,6 @@ internal class ScanCache(string cachePath)
 
         writer.Write("version:1\n");
         writer.Write($"va_base:{refVaBase:x}\n");
-        ;
         writer.Write($"cache_keys:{JsonSerializer.Serialize(cacheKeys, lineOptions)}\n");
         writer.Write('\n');
 

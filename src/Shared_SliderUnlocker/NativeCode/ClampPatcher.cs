@@ -14,14 +14,11 @@ public class ClampPatcher
 {
     private UnmanagedMemoryStream stream;
 
-    private readonly ulong imageBase;
-
     public ClampPatcher(ulong imageBase, ulong imageSize)
     {
         if (RuntimeInformation.ProcessArchitecture != Architecture.X64)
             throw new InvalidOperationException("Not x64 architecture.");
 
-        this.imageBase = imageBase;
         unsafe
         {
             stream = new UnmanagedMemoryStream(
