@@ -255,7 +255,25 @@ public partial class Plugin : BasePlugin
                     continue;
                 }
 
-                encoded.Add((patch.IP - imageBase, instrBuf.ToArray()));
+                var patchRva = patch.IP - imageBase;
+                var gap = patch.Length - len;
+
+                if (gap < 0)
+                {
+                    Log.LogError(
+                        $"FIXME: encoded patch length {len} greater than original instruction length:{patch.Length}, patch RVA:{patchRva}"
+                    );
+                    continue;
+                }
+
+                // fill gap with NOPs
+                for (int i = 0; i < gap; i++)
+                {
+                    // 0x90 NOP
+                    instrBuf.WriteByte(0x90);
+                }
+
+                encoded.Add((patchRva, instrBuf.ToArray()));
             }
 
             cacheBlocks.Add(
