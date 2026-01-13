@@ -12,7 +12,7 @@ Sliders unlocked:
 -   Base face and body shaping
 -   Physics(i.e. softness)
 -   Proper Slerp(Spherical linear interpolation) handling for rotations
--   Positioning and scaling of makeup textures and eye textures
+-   Positioning and scaling of various textures(eyes, makeups, clothes, ..)
 -   Character voice pitch
 
 For power users, you can also unlock other clamped variables by including related native code block in filtering rules.(See `BepInEx/config/ILL_SliderUnlocker/`)

@@ -104,11 +104,22 @@ internal class BlockPathFilter(BlockPathFilter.Rule[] rules)
 
     public static Rule[] DefaultFilterRules() =>
         [
+            new() { Path = [new() { TypeName = "UnityEngine." }], Action = RuleAction.Reject },
             new()
             {
                 Path =
                 [
                     new() { TypeName = "TypefaceAnimator", Method = "Modify" },
+                    new() { PathKind = "SubFunction", SubIndex = "" },
+                    new() { PathKind = "EntryBlock", BlockIndex = "" },
+                ],
+                Action = RuleAction.Reject,
+            },
+            new()
+            {
+                Path =
+                [
+                    new() { TypeName = "Character.HumanFace", Method = "UpdateBlendShapeVoice" },
                     new() { PathKind = "SubFunction", SubIndex = "" },
                     new() { PathKind = "EntryBlock", BlockIndex = "" },
                 ],
@@ -159,7 +170,7 @@ internal class BlockPathFilter(BlockPathFilter.Rule[] rules)
                     new()
                     {
                         TypeName =
-                            "/(^(AC|SV|HC|DigitalCraft)\\.|(^|\\.)(H|ADV)\\.|ColorPicker|EyeLookCalc|NeckLookCalc|NeckLookController|Color|Fade|Camera|Blink|Mouth|AnimationControllerBase|InertialAnimator|BaseCameraControl|BoneSwayCtr|PopupMsg|InteractableAlphaChanger)/",
+                            "/(^(AC|SV|HC|DigitalCraft)\\.|(^|\\.)(H|ADV)\\.|\\.FBS|ColorPicker|EyeLookCalc|NeckLookCalc|NeckLookController|Color|Fade|Camera|Blink|Mouth|AnimationControllerBase|InertialAnimator|BaseCameraControl|BoneSwayCtr|PopupMsg|InteractableAlphaChanger|MatAnm|TexAnm|Morph|Rigging|MotionIK|OverrideCursor|SlicedFilledImage|CaptureFrame|CustomWindowDragMove|StateMiniSelection|StateSetting|CustomImage|MoveWindow|ImageCustom|Manager\\.|ScreenshotHandlerURP)/",
                     },
                 ],
                 Action = RuleAction.Exclude,
