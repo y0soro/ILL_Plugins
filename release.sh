@@ -45,9 +45,15 @@ for i in src/*; do
 
     tmp=$(mktemp -d)
 
-    dist="src/${name}/dist"
+
+    dist="src/${shared_src}/dist"
     if [[ -d $dist ]]; then
         cp -r "${dist}/." $tmp
+    fi
+
+    dist="src/${name}/dist"
+    if [[ -d $dist ]]; then
+        cp -rf "${dist}/." $tmp
     fi
 
     pushd $tmp

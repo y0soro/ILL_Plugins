@@ -1,0 +1,115 @@
+[
+  {
+    "path": [
+      {
+        "typeName": "UnityEngine."
+      }
+    ],
+    "action": "Reject"
+  },
+  {
+    "path": [
+      {
+        "typeName": "TypefaceAnimator",
+        "method": "Modify"
+      },
+      {
+        "pathKind": "SubFunction",
+        "subIndex": ""
+      },
+      {
+        "pathKind": "EntryBlock",
+        "blockIndex": ""
+      }
+    ],
+    "action": "Reject"
+  },
+  {
+    "path": [
+      {
+        "typeName": "Character.HumanFace",
+        "method": "UpdateBlendShapeVoice"
+      },
+      {
+        "pathKind": "SubFunction"
+      },
+      {
+        "pathKind": "EntryBlock"
+      }
+    ],
+    "action": "Reject"
+  },
+  {
+    "path": [
+      {
+        "method": "get_voicePitch"
+      },
+      {
+        "pathKind": "/(EntryBlock|SubBlock)/",
+        "blockIndex": ""
+      }
+    ],
+    "action": "Accept"
+  },
+  {
+    "path": [
+      {
+        "typeName": "Character.HumanFace"
+      }
+    ],
+    "action": "Exclude"
+  },
+  {
+    "path": [
+      {
+        "typeName": "/(Character.Human|HumanCustom|EyeLookMaterialControll|VoiceCtrl)/"
+      }
+    ],
+    "action": "Include"
+  },
+  {
+    "path": [
+      {
+        "typeName": "SV.H.HScene/AnimeSpeeder"
+      }
+    ],
+    "action": "Exclude"
+  },
+  {
+    "path": [
+      {
+        "typeName": "/(^|\\.)H\\./",
+        "method": "/SetAnimationParam(e|a)ter/"
+      }
+    ],
+    "action": "Exclude"
+  },
+  {
+    "path": [
+      {
+        "typeName": "/(^(AC|SV|HC|DigitalCraft)\\.|(^|\\.)(H|ADV)\\.|\\.FBS|ColorPicker|EyeLookCalc|NeckLookCalc|NeckLookController|Color|Fade|Camera|Blink|Mouth|AnimationControllerBase|InertialAnimator|BaseCameraControl|BoneSwayCtr|PopupMsg|InteractableAlphaChanger|MatAnm|TexAnm|Morph|Rigging|MotionIK|OverrideCursor|SlicedFilledImage|CaptureFrame|CustomWindowDragMove|StateMiniSelection|StateSetting|CustomImage|MoveWindow|ImageCustom|Manager\\.|ScreenshotHandlerURP)/"
+      }
+    ],
+    "action": "Exclude"
+  },
+  {
+    "path": [
+      {
+        "typeName": "/^(DynamicBone|SuperScrollView|KriptoFX|Funly|ARYKEI|SensorToolkit|RuntimeMeshSimplifier|AmplifyColor|CFX_|SmoothCameraOrbit|ImplicitSurface|IncrementalModeling|MetaballBuilder|LakePolygon|MeshColoringRam|RamSpline|BFX_|EMTransition|MatAnmFrame|TexAnmUV)/"
+      }
+    ],
+    "action": "Exclude"
+  },
+  {
+    "path": [
+      {
+        "assembly": "/^(Assembly-CSharp|ILGLib|IL)\\.dll$/"
+      }
+    ],
+    "action": "Include"
+  },
+  {
+    "path": [],
+    "action": "Exclude"
+  }
+]
