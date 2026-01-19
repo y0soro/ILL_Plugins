@@ -137,6 +137,7 @@ public partial class Plugin
 
     internal static class SliderModCheckHooks
     {
+        // optional for clamping, clamp patcher already removes ratio clamping in underlying native code
         [HarmonyPrefix]
         [HarmonyPatch(typeof(HumanDataCheck), nameof(HumanDataCheck.IsFace))]
         [HarmonyPatch(typeof(HumanDataCheck), nameof(HumanDataCheck.IsBody))]
@@ -160,39 +161,6 @@ public partial class Plugin
         private static void LoadCharaFile()
         {
             HumanData.IsMod = false;
-        }
-
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(ChaListControl), nameof(ChaListControl.ContainsInfo))]
-        private static bool ContainsInfo(bool __result)
-        {
-            __result = true;
-            return false;
-        }
-
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(HumanDataCheck), nameof(HumanDataCheck.GetRange))]
-        private static bool GetRange(HumanDataCheck.Flags __result)
-        {
-            __result = HumanDataCheck.Flags.None;
-            return false;
-        }
-
-        // mask modding checks
-        // optional for clamping, clamp patcher already removes ratio clamping in underlying native code
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(HumanDataCheck), nameof(HumanDataCheck.IsHair))]
-        [HarmonyPatch(typeof(HumanDataCheck), nameof(HumanDataCheck.IsClothes))]
-        [HarmonyPatch(typeof(HumanDataCheck), nameof(HumanDataCheck.IsAccessory))]
-        [HarmonyPatch(typeof(HumanDataCheck), nameof(HumanDataCheck.IsFaceMakeup))]
-        [HarmonyPatch(typeof(HumanDataCheck), nameof(HumanDataCheck.IsBodyMakeup))]
-        // IsParameter is inlined thus need additional hooks
-        [HarmonyPatch(typeof(HumanDataCheck), nameof(HumanDataCheck.IsParameter))]
-        [HarmonyPatch(typeof(HumanDataCheck), nameof(HumanDataCheck.IsRange))]
-        private static bool IsModCheck(bool __result)
-        {
-            __result = false;
-            return false;
         }
     }
 }
