@@ -112,9 +112,9 @@ public partial class Plugin : BasePlugin
 #endif
         RemoveModCheck = Config.Bind(
             "Extra",
-            "Remove Mod checks",
+            "Remove MOD checks",
             ModCheck.Slider,
-            "Let you upload modded character to official site. Changes will take effect next time the editor is loaded or a character is loaded."
+            "Allows you upload modded characters to official sites. Changes will take effect next time the editor is loaded or a character is loaded."
         );
 
         Directory.CreateDirectory(ConfigDirPath);

@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using ILL_SliderUnlocker;
@@ -120,8 +118,8 @@ internal class BlockPathFilter(BlockPathFilter.Rule[] rules)
                 Path =
                 [
                     new() { TypeName = "Character.HumanFace", Method = "UpdateBlendShapeVoice" },
-                    new() { PathKind = "SubFunction", SubIndex = "" },
-                    new() { PathKind = "EntryBlock", BlockIndex = "" },
+                    new() { PathKind = "SubFunction" },
+                    new() { PathKind = "EntryBlock" },
                 ],
                 Action = RuleAction.Reject,
             },
