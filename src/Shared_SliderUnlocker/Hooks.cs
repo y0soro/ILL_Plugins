@@ -138,13 +138,12 @@ public partial class Plugin
     internal static class SliderModCheckHooks
     {
         // optional for clamping, clamp patcher already removes ratio clamping in underlying native code
-        [HarmonyPrefix]
+        [HarmonyPostfix]
         [HarmonyPatch(typeof(HumanDataCheck), nameof(HumanDataCheck.IsFace))]
         [HarmonyPatch(typeof(HumanDataCheck), nameof(HumanDataCheck.IsBody))]
-        private static bool IsModCheck(bool __result)
+        private static void IsModCheck(bool __result)
         {
             __result = false;
-            return false;
         }
     }
 
