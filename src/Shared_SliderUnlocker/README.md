@@ -21,7 +21,7 @@ For power users, you can also unlock other clamped variables by including relate
 
 | Download                                                                               | Note |
 | -------------------------------------------------------------------------------------- | ---- |
-| [v1.0.0](https://github.com/y0soro/ILL_Plugins/releases/tag/ILL_SliderUnlocker-v1.0.0) |      |
+| [v1.0.1](https://github.com/y0soro/ILL_Plugins/releases/tag/ILL_SliderUnlocker-v1.0.1) |      |
 
 0. (Install [BepInEx](https://builds.bepinex.dev/projects/bepinex_be).)
 1. Unpack to BepInEx enabled game root.
