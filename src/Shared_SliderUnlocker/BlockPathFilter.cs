@@ -123,6 +123,12 @@ internal class BlockPathFilter(BlockPathFilter.Rule[] rules)
                 ],
                 Action = RuleAction.Reject,
             },
+            // fix SVS H UI positioning
+            new()
+            {
+                Path = [new() { TypeName = "UISlideVisible" }, new() { PathKind = "EntryBlock" }],
+                Action = RuleAction.Reject,
+            },
             new()
             {
                 Path =
@@ -180,7 +186,7 @@ internal class BlockPathFilter(BlockPathFilter.Rule[] rules)
                     new()
                     {
                         TypeName =
-                            "/^(DynamicBone|SuperScrollView|KriptoFX|Funly|ARYKEI|SensorToolkit|RuntimeMeshSimplifier|AmplifyColor|CFX_|SmoothCameraOrbit|ImplicitSurface|IncrementalModeling|MetaballBuilder|LakePolygon|MeshColoringRam|RamSpline|BFX_|EMTransition|MatAnmFrame|TexAnmUV)/",
+                            "/^(DynamicBone|SuperScrollView|KriptoFX|Funly|ARYKEI|SensorToolkit|RuntimeMeshSimplifier|AmplifyColor|CFX_|SmoothCameraOrbit|ImplicitSurface|IncrementalModeling|MetaballBuilder|LakePolygon|MeshColoringRam|RamSpline|BFX_|EMTransition|MatAnmFrame|TexAnmUV|GUITree)/",
                     },
                 ],
                 Action = RuleAction.Exclude,
