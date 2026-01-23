@@ -241,8 +241,6 @@ public partial class Plugin : BasePlugin
                 Path.GetRelativePath(Path.Join(Application.dataPath, "../"), __0)
             );
 
-            Log.LogDebug($"GetFiles {dir} pattern {__1}");
-
             if (!recursiveDirs.Any(dir.StartsWith))
                 return true;
 

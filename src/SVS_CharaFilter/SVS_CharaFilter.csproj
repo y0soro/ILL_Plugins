@@ -27,7 +27,7 @@
 
   <PropertyGroup>
     <DefineConstants>UPLOADER</DefineConstants>
-    <DefineConstants>AC</DefineConstants>
+    <DefineConstants>SVS</DefineConstants>
   </PropertyGroup>
 
   <Import Project="../Shared_CharaFilter/Shared.props" />
