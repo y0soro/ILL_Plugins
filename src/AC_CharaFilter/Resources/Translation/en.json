@@ -29,7 +29,12 @@
     "ツンデレ": "Tsundere",
     "お嬢様": "Ojousama",
     "生意気": "Cheeky",
-    "ものぐさ": "Lazy"
+    "ものぐさ": "Lazy",
+    "無邪気": "Innocent",
+    "真面目": "Serious",
+    "お調子者": "Show-off",
+    "無口": "Reserved",
+    "ノリノリ": "Excited"
   },
   "ui": {
     "AND": "AND",
