@@ -66,7 +66,7 @@ public abstract class CharaFilterManager
                 "General",
                 "Language",
                 "",
-                "L10n Language usage, auto-detect if empty, one of en, ja-JP or zh-CN. Needs restart to take effect."
+                "Translation language used, auto-detect if empty, one of en, ja-JP, zh-CN or zh-TW. Needs restart to take effect."
             )
             .Value;
 
