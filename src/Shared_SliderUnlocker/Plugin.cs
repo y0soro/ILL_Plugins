@@ -114,7 +114,7 @@ public partial class Plugin : BasePlugin
             "Extra",
             "Remove MOD checks",
             ModCheck.Slider,
-            "Allows you upload modded characters to official sites. Changes will take effect next time the editor is loaded or a character is loaded."
+            "Allows you upload modded characters to official sites. Changes will take effect next time the game launches."
         );
 
         Directory.CreateDirectory(ConfigDirPath);

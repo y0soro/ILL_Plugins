@@ -120,7 +120,6 @@ public partial class Plugin
         private static void EntryUndo(HumanCustom.IInputSliderButton pack)
         {
             HumanCustom.IInputSlider inputSlider = pack.Cast<HumanCustom.IInputSlider>();
-            // Slider slider = new HumanCustom.IInputSlider(pack.Pointer).Slider;
             SetSliderRange(inputSlider.Slider);
         }
 
