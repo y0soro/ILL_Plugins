@@ -24,7 +24,7 @@ internal static class MethodGenerator
     {
 #if false
         body.Emit(OpCodes.Ldstr, stage);
-        body.Emit(OpCodes.Call, AccessTools.Method(typeof(MethodGenerator), "LogStage"));
+        body.Emit(OpCodes.Call, HarmonyLib.AccessTools.Method(typeof(MethodGenerator), "LogStage"));
 #endif
     }
 

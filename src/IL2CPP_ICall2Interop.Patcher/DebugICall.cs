@@ -30,6 +30,7 @@ internal static class DebugICall
 
         string[] debugICalls =
         [
+            // "UnityEngine.Screen::GetMainWindowDisplayInfo_Injected",
             // "UnityEngine.Camera::CalculateFrustumCornersInternal_Injected",
             // "UnityEngine.Windows.WebCam.PhotoCaptureFrame",
             // "UnityEngine.Texture2D::GetRawTextureData"

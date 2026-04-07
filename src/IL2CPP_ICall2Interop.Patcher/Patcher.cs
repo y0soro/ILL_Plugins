@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using BepInEx;
@@ -17,12 +18,29 @@ public class Patcher : BasePatcher
 
     internal static ICallDatabase ICallDb = null;
 
+    internal static bool DisableReplacing = false;
     internal static string DumpDir = null;
-
     private static bool HookAllInternalCalls = false;
+
+    public override void Initialize()
+    {
+        Log = base.Log;
+        InitConfigs();
+        // run as early as possible in case of other patchers resolving internal call before us
+        InitHook();
+    }
 
     private void InitConfigs()
     {
+        DisableReplacing = Config
+            .Bind(
+                "Advanced",
+                "DisableReplacing",
+                false,
+                "Disable replacing internal calls using il2cpp_add_internal_call."
+            )
+            .Value;
+
         var DumpMethodDir = Config.Bind(
             "Debug",
             "DumpMethodDir",
@@ -41,11 +59,8 @@ public class Patcher : BasePatcher
             .Value;
     }
 
-    public override void Finalizer()
+    private void InitHook()
     {
-        Log = base.Log;
-        InitConfigs();
-
         var timer = new Stopwatch();
 
         timer.Start();
@@ -63,6 +78,11 @@ public class Patcher : BasePatcher
         timer.Stop();
 
         Log.LogInfo($"Loaded internal call db in {timer.ElapsedMilliseconds}ms");
+
+        if (!DisableReplacing)
+        {
+            ResolveICallHook.PreReplaceICalls(ICallDb);
+        }
 
         ResolveICallHook.Install();
 

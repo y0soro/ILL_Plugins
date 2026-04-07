@@ -96,8 +96,6 @@ internal class HarmonyICallPatcher : MethodPatcher
 
         SetTrampolinePtr(nativeDetour.TrampolinePtr);
 
-        // calli on raw function pointer does not work well with enum parameter type
-        // XXX: figure out how to do such conversion properly
         var interopToTrampolineICall = MethodGenerator.GenManagedInteropToICallMethod(
             Original,
             nativeDetour.TrampolinePtr,
