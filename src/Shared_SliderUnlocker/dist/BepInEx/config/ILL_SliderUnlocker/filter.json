@@ -42,6 +42,17 @@
   {
     "path": [
       {
+        "typeName": "UISlideVisible"
+      },
+      {
+        "pathKind": "EntryBlock"
+      }
+    ],
+    "action": "Reject"
+  },
+  {
+    "path": [
+      {
         "method": "get_voicePitch"
       },
       {
@@ -95,7 +106,7 @@
   {
     "path": [
       {
-        "typeName": "/^(DynamicBone|SuperScrollView|KriptoFX|Funly|ARYKEI|SensorToolkit|RuntimeMeshSimplifier|AmplifyColor|CFX_|SmoothCameraOrbit|ImplicitSurface|IncrementalModeling|MetaballBuilder|LakePolygon|MeshColoringRam|RamSpline|BFX_|EMTransition|MatAnmFrame|TexAnmUV)/"
+        "typeName": "/^(DynamicBone|SuperScrollView|KriptoFX|Funly|ARYKEI|SensorToolkit|RuntimeMeshSimplifier|AmplifyColor|CFX_|SmoothCameraOrbit|ImplicitSurface|IncrementalModeling|MetaballBuilder|LakePolygon|MeshColoringRam|RamSpline|BFX_|EMTransition|MatAnmFrame|TexAnmUV|GUITree)/"
       }
     ],
     "action": "Exclude"

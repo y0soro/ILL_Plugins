@@ -325,7 +325,7 @@ public partial class Plugin : BasePlugin
                 !VirtualProtect(
                     (nint)patchVa,
                     (nuint)data.Length,
-                    (uint)MemoryProtection.ExecuteReadWrite,
+                    MemoryProtection.ExecuteReadWrite,
                     out var lpflOldProtect
                 )
             )
@@ -359,12 +359,12 @@ public partial class Plugin : BasePlugin
         WriteCombineModifierflag = 0x400,
     }
 
-    [DllImport("kernel32.dll")]
+    [DllImport("kernel32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool VirtualProtect(
         IntPtr lpAddress,
         UIntPtr dwSize,
-        uint flNewProtect,
-        out uint lpflOldProtect
+        MemoryProtection flNewProtect,
+        out MemoryProtection lpflOldProtect
     );
 }
