@@ -19,7 +19,7 @@ Update UI translation [here](src/SVS_CharaFilter/CharaFilterCore/Resources/Trans
 
 | Download                                                                            | Note |
 | ----------------------------------------------------------------------------------- | ---- |
-| [v0.0.7](https://github.com/y0soro/ILL_Plugins/releases/tag/ILL_CharaFilter-v0.0.7) |      |
+| [v0.0.8](https://github.com/y0soro/ILL_Plugins/releases/tag/ILL_CharaFilter-v0.0.8) |      |
 
 0. (Install [BepInEx](https://builds.bepinex.dev/projects/bepinex_be).)
 1. Unpack to BepInEx enabled game root.
