@@ -14,6 +14,5 @@ This also allows you to configure a HTTP proxy bypassing TLS certification check
 | ---------------------------------------------------------------------------------- | ---- |
 | [v0.0.4](https://github.com/y0soro/ILL_Plugins/releases/tag/WebRequestMask-v0.0.4) |      |
 
-0. (Install [BepInEx](https://builds.bepinex.dev/projects/bepinex_be).)
+0. (Install patched [BepInEx](https://github.com/y0soro/BepInEx-Builds).)
 1. Unpack to BepInEx enabled game root.
-2. For SVS, make sure you have a matching [decrypted_global-metadata.dat](https://uu.getuploader.com/y0soro/) installed and properly configured.

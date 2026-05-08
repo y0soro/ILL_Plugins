@@ -23,11 +23,10 @@ For power users, you can also unlock other clamped variables by including relate
 | -------------------------------------------------------------------------------------- | ---- |
 | [v1.1.0](https://github.com/y0soro/ILL_Plugins/releases/tag/ILL_SliderUnlocker-v1.1.0) |      |
 
-0. (Install [BepInEx](https://builds.bepinex.dev/projects/bepinex_be).)
+0. (Install patched [BepInEx](https://github.com/y0soro/BepInEx-Builds).)
 1. Unpack to BepInEx enabled game root.
-2. For SVS, make sure you have a matching [decrypted_global-metadata.dat](https://uu.getuploader.com/y0soro/) installed and properly configured.
-3. This SliderUnlock**er** rewrite supersedes previous HC_SliderUnlock, HC_SliderUnlock_DC and SVS_SliderUnlock by @Samsung Galaxy Note 10+ and [me](https://github.com/y0soro/SVS_SliderUnlock/releases), you can optionally remove those old dlls.
-4. Launch the game, wait a few seconds to let plugin build the cache. Launches after that would use cache instead unless cache invalidates due to game updates or filtering rule changes.
+2. This SliderUnlock**er** rewrite supersedes previous HC_SliderUnlock, HC_SliderUnlock_DC and SVS_SliderUnlock by @Samsung Galaxy Note 10+ and [me](https://github.com/y0soro/SVS_SliderUnlock/releases), you can optionally remove those old dlls.
+3. Launch the game, wait a few seconds to let plugin build the cache. Launches after that would use cache instead unless cache invalidates due to game updates or filtering rule changes.
 
 ### Breaking changes from SliderUnlock
 
