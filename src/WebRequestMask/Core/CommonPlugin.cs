@@ -60,10 +60,12 @@ public class CommonPlugin
             "Mask URL Prefixes",
             new UrlPrefixes(
                 [
-                    "https://upcheck.illgames.jp/product/svs/game/check.php",
+                    // https://upcheck.illgames.jp/product/svs/game/check.php
+                    // https://upcheck.illgames.jp/product/digitalcraft/game/tos_check.php
+                    // https://upcheck.illgames.jp/product/aicomi/game/check.php
+                    // https://upcheck.illgames.jp/product/amaloca/game/check.php
+                    "https://upcheck.illgames.jp/product/",
                     "https://download.illgames.jp/check/game/tos_check.php",
-                    "https://upcheck.illgames.jp/product/digitalcraft/game/tos_check.php",
-                    "https://upcheck.illgames.jp/product/aicomi/game/check.php",
                 ]
             ),
             "Always responds with HTTP 200 OK for URLs matching these prefixes, effectively blocks public Web traffic towards these URLs."
