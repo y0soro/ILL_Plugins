@@ -4,7 +4,7 @@ using Character;
 using CharacterCreation;
 using HarmonyLib;
 using UnityEngine.UI;
-#if AC
+#if AC || AL
 using R3;
 #else
 using UniRx;
@@ -74,6 +74,18 @@ public partial class Plugin
         }
 
         [HarmonyPrefix]
+#if AL
+        [HarmonyPatch(
+            typeof(HumanCustom),
+            nameof(HumanCustom.EntryUndo),
+            [
+                typeof(HumanCustom.IInputSlider),
+                typeof(HumanCustom.IInputSlider.Get),
+                typeof(HumanCustom.IInputSlider.Set),
+                typeof(CompositeDisposable),
+            ]
+        )]
+#else
         [HarmonyPatch(
             typeof(HumanCustom),
             nameof(HumanCustom.EntryUndo),
@@ -84,12 +96,25 @@ public partial class Plugin
                 typeof(CompositeDisposable),
             ]
         )]
+#endif
         private static void EntryUndo(HumanCustom.IInputSlider pack)
         {
             SetSliderRange(pack.Slider);
         }
 
         [HarmonyPrefix]
+#if AL
+        [HarmonyPatch(
+            typeof(HumanCustom),
+            nameof(HumanCustom.EntryUndo),
+            [
+                typeof(HumanCustom.ISlider),
+                typeof(HumanCustom.ISlider.Get),
+                typeof(HumanCustom.ISlider.Set),
+                typeof(CompositeDisposable),
+            ]
+        )]
+#else
         [HarmonyPatch(
             typeof(HumanCustom),
             nameof(HumanCustom.EntryUndo),
@@ -100,12 +125,26 @@ public partial class Plugin
                 typeof(CompositeDisposable),
             ]
         )]
+#endif
         private static void EntryUndo(HumanCustom.ISlider pack)
         {
             SetSliderRange(pack.Slider);
         }
 
         [HarmonyPrefix]
+#if AL
+        [HarmonyPatch(
+            typeof(HumanCustom),
+            nameof(HumanCustom.EntryUndo),
+            [
+                typeof(HumanCustom.IInputSliderButton),
+                typeof(HumanCustom.IInputSlider.Get),
+                typeof(HumanCustom.IInputSlider.Set),
+                typeof(HumanCustom.IInputSlider.Reset),
+                typeof(CompositeDisposable),
+            ]
+        )]
+#else
         [HarmonyPatch(
             typeof(HumanCustom),
             nameof(HumanCustom.EntryUndo),
@@ -117,6 +156,7 @@ public partial class Plugin
                 typeof(CompositeDisposable),
             ]
         )]
+#endif
         private static void EntryUndo(HumanCustom.IInputSliderButton pack)
         {
             HumanCustom.IInputSlider inputSlider = pack.Cast<HumanCustom.IInputSlider>();

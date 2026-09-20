@@ -174,7 +174,7 @@ internal class BlockPathFilter(BlockPathFilter.Rule[] rules)
                     new()
                     {
                         TypeName =
-                            "/(^(AC|SV|HC|DigitalCraft)\\.|(^|\\.)(H|ADV)\\.|\\.FBS|ColorPicker|EyeLookCalc|NeckLookCalc|NeckLookController|Color|Fade|Camera|Blink|Mouth|AnimationControllerBase|InertialAnimator|BaseCameraControl|BoneSwayCtr|PopupMsg|InteractableAlphaChanger|MatAnm|TexAnm|Morph|Rigging|MotionIK|OverrideCursor|SlicedFilledImage|CaptureFrame|CustomWindowDragMove|StateMiniSelection|StateSetting|CustomImage|MoveWindow|ImageCustom|Manager\\.|ScreenshotHandlerURP)/",
+                            "/(^(AC|SV|HC|DigitalCraft|AL)\\.|(^|\\.)(H|ADV)\\.|\\.FBS|ColorPicker|EyeLookCalc|NeckLookCalc|NeckLookController|Color|Fade|Camera|Blink|Mouth|AnimationControllerBase|InertialAnimator|BaseCameraControl|BoneSwayCtr|PopupMsg|InteractableAlphaChanger|MatAnm|TexAnm|Morph|Rigging|MotionIK|OverrideCursor|SlicedFilledImage|CaptureFrame|CustomWindowDragMove|StateMiniSelection|StateSetting|CustomImage|MoveWindow|ImageCustom|Manager\\.|ScreenshotHandlerURP)/",
                     },
                 ],
                 Action = RuleAction.Exclude,

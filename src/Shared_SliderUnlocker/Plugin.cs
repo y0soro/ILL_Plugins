@@ -205,7 +205,7 @@ public partial class Plugin : BasePlugin
                     WritePatches(
                         imageBase,
                         imageSize,
-                        cachedBlocks.SelectMany(i => i.Matched ? i.Patches : [])
+                        cachedBlocks.Where(i => i.Matched).SelectMany(i => i.Patches)
                     );
 
                     GetInfoHook.Install(imageBase + getInfoRva);

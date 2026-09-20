@@ -76,7 +76,7 @@ internal static class GetInfoHook
         ref var rotOut = ref Unsafe.AsRef<Vector3>(pRot);
         ref var scaleOut = ref Unsafe.AsRef<Vector3>(pScale);
 
-#if AC
+#if AC || AL
         var ctrl = Il2CppObjectPool.Get<ILLGAMES.Unity.AnimationKeyInfo.Controller>(pThis);
         var dictInfo = ctrl._dictInfo;
 #else

@@ -98,7 +98,7 @@
   {
     "path": [
       {
-        "typeName": "/(^(AC|SV|HC|DigitalCraft)\\.|(^|\\.)(H|ADV)\\.|\\.FBS|ColorPicker|EyeLookCalc|NeckLookCalc|NeckLookController|Color|Fade|Camera|Blink|Mouth|AnimationControllerBase|InertialAnimator|BaseCameraControl|BoneSwayCtr|PopupMsg|InteractableAlphaChanger|MatAnm|TexAnm|Morph|Rigging|MotionIK|OverrideCursor|SlicedFilledImage|CaptureFrame|CustomWindowDragMove|StateMiniSelection|StateSetting|CustomImage|MoveWindow|ImageCustom|Manager\\.|ScreenshotHandlerURP)/"
+        "typeName": "/(^(AC|SV|HC|DigitalCraft|AL)\\.|(^|\\.)(H|ADV)\\.|\\.FBS|ColorPicker|EyeLookCalc|NeckLookCalc|NeckLookController|Color|Fade|Camera|Blink|Mouth|AnimationControllerBase|InertialAnimator|BaseCameraControl|BoneSwayCtr|PopupMsg|InteractableAlphaChanger|MatAnm|TexAnm|Morph|Rigging|MotionIK|OverrideCursor|SlicedFilledImage|CaptureFrame|CustomWindowDragMove|StateMiniSelection|StateSetting|CustomImage|MoveWindow|ImageCustom|Manager\\.|ScreenshotHandlerURP)/"
       }
     ],
     "action": "Exclude"
