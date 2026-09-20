@@ -287,7 +287,7 @@ public partial class Plugin : BasePlugin
             );
         }
 
-        WritePatches(imageBase, imageSize, cacheBlocks.SelectMany(i => i.Matched ? i.Patches : []));
+        WritePatches(imageBase, imageSize, cacheBlocks.Where(i => i.Matched).SelectMany(i => i.Patches));
 
         Log.LogInfo($"Included patch set count {patchSetCnt}/{patchBlocks.Count}");
 

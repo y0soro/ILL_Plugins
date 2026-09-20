@@ -1,11 +1,12 @@
 # ILL_SliderUnlocker
 
-A general SliderUnlocker for all ILLGAMES titles(AC, SVS, HC, DC) and versions.
+A general SliderUnlocker for all ILLGAMES titles(AC, SVS, HC, DC, AL) and versions.
 
 -   HC: HoneyCome
 -   DC: DigitalCraft
 -   SVS: Samabake Scramble/Summer Vacation! Scramble
 -   AC: Aicomi
+-   AL: AmanatsuLocation
 
 Sliders unlocked:
 
