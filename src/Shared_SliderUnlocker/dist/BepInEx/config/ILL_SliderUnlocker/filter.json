@@ -27,6 +27,30 @@
   {
     "path": [
       {
+        "typeName": "Character.Human",
+        "method": "/(ChangeWet|ChangeSweat|Dithering|Dissolve)/"
+      },
+      {
+        "pathKind": "EntryBlock"
+      }
+    ],
+    "action": "Reject"
+  },
+  {
+    "path": [
+      {
+        "typeName": "Character.HumanCloth",
+        "method": "/(ChangeTransparency|ChangeWet)/"
+      },
+      {
+        "pathKind": "EntryBlock"
+      }
+    ],
+    "action": "Reject"
+  },
+  {
+    "path": [
+      {
         "typeName": "Character.HumanFace",
         "method": "UpdateBlendShapeVoice"
       },
@@ -65,7 +89,7 @@
   {
     "path": [
       {
-        "typeName": "Character.HumanFace"
+        "typeName": "/(Character.HumanFace|Character.BustNormal)/"
       }
     ],
     "action": "Exclude"
@@ -106,7 +130,7 @@
   {
     "path": [
       {
-        "typeName": "/^(DynamicBone|SuperScrollView|KriptoFX|Funly|ARYKEI|SensorToolkit|RuntimeMeshSimplifier|AmplifyColor|CFX_|SmoothCameraOrbit|ImplicitSurface|IncrementalModeling|MetaballBuilder|LakePolygon|MeshColoringRam|RamSpline|BFX_|EMTransition|MatAnmFrame|TexAnmUV|GUITree)/"
+        "typeName": "/^(DynamicBone|SuperScrollView|KriptoFX|Funly|ARYKEI|SensorToolkit|RuntimeMeshSimplifier|AmplifyColor|CFX_|SmoothCameraOrbit|ImplicitSurface|IncrementalModeling|MetaballBuilder|LakePolygon|MeshColoringRam|RamSpline|BFX_|EMTransition|MatAnmFrame|TexAnmUV|GUITree|FluidFlow|FishFlock)/"
       }
     ],
     "action": "Exclude"

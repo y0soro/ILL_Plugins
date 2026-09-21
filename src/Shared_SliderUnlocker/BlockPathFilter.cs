@@ -113,6 +113,25 @@ internal class BlockPathFilter(BlockPathFilter.Rule[] rules)
                 ],
                 Action = RuleAction.Reject,
             },
+            // fix massage oil effect appearing after butsukake
+            new()
+            {
+                Path =
+                [
+                    new() { TypeName = "Character.Human", Method = "/(ChangeWet|ChangeSweat|Dithering|Dissolve)/" },
+                    new() { PathKind = "EntryBlock" },
+                ],
+                Action = RuleAction.Reject,
+            },
+            new()
+            {
+                Path =
+                [
+                    new() { TypeName = "Character.HumanCloth", Method = "/(ChangeTransparency|ChangeWet)/" },
+                    new() { PathKind = "EntryBlock" },
+                ],
+                Action = RuleAction.Reject,
+            },
             new()
             {
                 Path =
@@ -140,7 +159,7 @@ internal class BlockPathFilter(BlockPathFilter.Rule[] rules)
             },
             new()
             {
-                Path = [new() { TypeName = "Character.HumanFace" }],
+                Path = [new() { TypeName = "/(Character.HumanFace|Character.BustNormal)/" }],
                 Action = RuleAction.Exclude,
             },
             new()
@@ -186,7 +205,7 @@ internal class BlockPathFilter(BlockPathFilter.Rule[] rules)
                     new()
                     {
                         TypeName =
-                            "/^(DynamicBone|SuperScrollView|KriptoFX|Funly|ARYKEI|SensorToolkit|RuntimeMeshSimplifier|AmplifyColor|CFX_|SmoothCameraOrbit|ImplicitSurface|IncrementalModeling|MetaballBuilder|LakePolygon|MeshColoringRam|RamSpline|BFX_|EMTransition|MatAnmFrame|TexAnmUV|GUITree)/",
+                            "/^(DynamicBone|SuperScrollView|KriptoFX|Funly|ARYKEI|SensorToolkit|RuntimeMeshSimplifier|AmplifyColor|CFX_|SmoothCameraOrbit|ImplicitSurface|IncrementalModeling|MetaballBuilder|LakePolygon|MeshColoringRam|RamSpline|BFX_|EMTransition|MatAnmFrame|TexAnmUV|GUITree|FluidFlow|FishFlock)/",
                     },
                 ],
                 Action = RuleAction.Exclude,

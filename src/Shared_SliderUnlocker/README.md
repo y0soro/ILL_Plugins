@@ -39,7 +39,7 @@ You can just switch back to old SliderUnlocks if you want to preserve old appear
 
 SliderUnclocker requires remove clamping code of shape values to work. For Mono-based ILLUSION games, it's easy because you can just hook `Mathf.Clamp` method and it's 90% done. However for IL2CPP-based games, it's a whole different story because of aggressive optimization policy that inlining `Mathf.Clamp` to all of its users, so you need to hook all of those user functions to remove clamping code.
 
-The question is, expect the address of `Math.Clamp` are recorded in metadata, all others addresses of inlined clamping codes are not predictable and can change by game updates.
+The problem is, expect the address of `Math.Clamp` are recorded in metadata, all others addresses of inlined clamping codes are not predictable and can change by game updates.
 
 The old SliderUnlocks handles this by either stick to a specific game version or use binary signatures to locate a few predictable clamping codes. However neither of these two methods can be easily maintained and can break at any time due to game updates. And only a limited number of clamping codes are patched due to maintenance cost.
 
