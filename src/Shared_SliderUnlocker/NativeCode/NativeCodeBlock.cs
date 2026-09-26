@@ -10,12 +10,15 @@ public class NativeCodeBlock
 
     public ulong IP => Instructions[0].IP;
     public ulong NextIP => Instructions[^1].NextIP;
+    
+    public bool IsTerminated;
 
-    public NativeCodeBlock(Instr[] instructions)
+    public NativeCodeBlock(Instr[] instructions, bool isTerminated)
     {
         if (instructions.Length < 1)
             throw new ArgumentException("Empty instruction set");
         Instructions = instructions;
+        IsTerminated = isTerminated;
     }
 
     public void Merge(NativeCodeBlock other)

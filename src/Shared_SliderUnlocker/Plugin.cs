@@ -82,7 +82,7 @@ public partial class Plugin : BasePlugin
     }
 
     // change if filtering logic changes
-    public static string CacheEpoch = "1";
+    public static string CacheEpoch = "2";
 
     public override void Load()
     {

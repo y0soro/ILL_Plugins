@@ -56,6 +56,8 @@ public class NativeCodeBlockAnalyzer : IDisposable
 
             List<Instr> instructions = [];
 
+            var isTerminated = false;
+
             while (stream.Position < stream.Length)
             {
                 decoder.Decode(out var instr);
@@ -64,8 +66,15 @@ public class NativeCodeBlockAnalyzer : IDisposable
 
                 instructions.Add(new(instr));
 
-                if (instr.FlowControl.IsRet() || instr.FlowControl.IsInterrupt())
+                // a function body may have multiple rets in which case isTerminated could be false
+                if (instr.FlowControl.IsRet())
                     break;
+
+                if (instr.FlowControl.IsInterrupt())
+                {
+                    isTerminated = true;
+                    break;
+                }
 
                 if (instr.FlowControl == FlowControl.Call)
                 {
@@ -110,7 +119,13 @@ public class NativeCodeBlockAnalyzer : IDisposable
                     break;
             }
 
-            var block = new NativeCodeBlock([.. instructions]);
+            if (!isTerminated && stream.Position < stream.Length)
+            {
+                decoder.Decode(out var instr);
+                isTerminated = instr.FlowControl.IsInterrupt();
+            }
+
+            var block = new NativeCodeBlock([.. instructions], isTerminated);
 
             try
             {
@@ -130,6 +145,8 @@ public class NativeCodeBlockAnalyzer : IDisposable
             // sorted.Sort();
             // toWalk = new([.. sorted]);
         }
+
+        blocks.SniffAndMaskDeadBlocks(imageBase);
 
         return blocks;
     }
