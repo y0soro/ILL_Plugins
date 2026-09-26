@@ -10,9 +10,7 @@ This also allows you to configure a HTTP proxy bypassing TLS certification check
 
 ## Installation
 
-| Download                                                                           | Note |
-| ---------------------------------------------------------------------------------- | ---- |
-| [v0.0.4](https://github.com/y0soro/ILL_Plugins/releases/tag/WebRequestMask-v0.0.4) |      |
+[Download](https://github.com/y0soro/ILL_Plugins/releases)
 
 0. (Install patched [BepInEx](https://github.com/y0soro/BepInEx-Builds).)
 1. Unpack to BepInEx enabled game root.
